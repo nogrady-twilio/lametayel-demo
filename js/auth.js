@@ -102,14 +102,20 @@ class AuthManager {
                         email_domain: email.split('@')[1]
                     });
                     
-                    // Identify user with email as user_id
-                    analytics.identify(userData.email, {  // Using email as user_id
-                        email: userData.email,
-                        firstName: userData.firstName,
-                        lastName: userData.lastName,
-                        login_timestamp: new Date().toISOString(),
-                        login_method: 'email'
-                    });
+                    // Identify user with email as user_id - DIRECT Segment call  
+                    if (window.analytics && window.analytics.identify) {
+                        console.log('🔥 LOGIN SEGMENT IDENTIFY with email as user_id:', userData.email);
+                        
+                        window.analytics.identify(userData.email, {  // Using email as user_id
+                            email: userData.email,
+                            firstName: userData.firstName,
+                            lastName: userData.lastName,
+                            login_timestamp: new Date().toISOString(),
+                            login_method: 'email'
+                        });
+                        
+                        console.log('✅ LOGIN SEGMENT IDENTIFY COMPLETED');
+                    }
                 }
             } else {
                 this.showError('Invalid email or password');
@@ -183,18 +189,26 @@ class AuthManager {
                     marketing_consent: marketingConsent
                 });
                 
-                // Identify user with comprehensive traits
-                analytics.identify(userData.email, {  // Using email as user_id
-                    email: userData.email,
-                    firstName: userData.firstName,
-                    lastName: userData.lastName,
-                    created_at: new Date().toISOString(),
-                    login_timestamp: new Date().toISOString(),
-                    marketing_consent: marketingConsent,
-                    signup_method: 'email',
-                    account_type: 'standard',
-                    user_status: 'active'
-                });
+                // Identify user with comprehensive traits - DIRECT Segment call
+                if (window.analytics && window.analytics.identify) {
+                    console.log('🔥 CALLING SEGMENT IDENTIFY with email as user_id:', userData.email);
+                    
+                    window.analytics.identify(userData.email, {  // Using email as user_id
+                        email: userData.email,
+                        firstName: userData.firstName,
+                        lastName: userData.lastName,
+                        created_at: new Date().toISOString(),
+                        login_timestamp: new Date().toISOString(),
+                        marketing_consent: marketingConsent,
+                        signup_method: 'email',
+                        account_type: 'standard',
+                        user_status: 'active'
+                    });
+                    
+                    console.log('✅ SEGMENT IDENTIFY CALL COMPLETED');
+                } else {
+                    console.error('❌ Segment analytics not available');
+                }
             }
             
             // Update user traits
@@ -230,16 +244,22 @@ class AuthManager {
                     social_provider: provider
                 });
                 
-                // Identify user with email as user_id
-                analytics.identify(userData.email, {  // Using email as user_id
-                    email: userData.email,
-                    firstName: userData.firstName,
-                    lastName: userData.lastName,
-                    social_login: provider,
-                    login_timestamp: new Date().toISOString(),
-                    login_method: provider,
-                    account_type: 'social'
-                });
+                // Identify user with email as user_id - DIRECT Segment call
+                if (window.analytics && window.analytics.identify) {
+                    console.log('🔥 SOCIAL LOGIN SEGMENT IDENTIFY with email as user_id:', userData.email);
+                    
+                    window.analytics.identify(userData.email, {  // Using email as user_id
+                        email: userData.email,
+                        firstName: userData.firstName,
+                        lastName: userData.lastName,
+                        social_login: provider,
+                        login_timestamp: new Date().toISOString(),
+                        login_method: provider,
+                        account_type: 'social'
+                    });
+                    
+                    console.log('✅ SOCIAL LOGIN SEGMENT IDENTIFY COMPLETED');
+                }
             }
             
             // Reset button

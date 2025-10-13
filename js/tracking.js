@@ -246,13 +246,17 @@ class LametayelTracking {
                 break;
                 
             case 'login-submit':
-                event.preventDefault();
-                this.trackLogin(formData, formProperties);
+                // Let auth.js handle login - don't prevent default
+                console.log('🔄 LOGIN FORM SUBMITTED - Letting auth.js handle identification');
+                // Just track the event, don't intercept the form
+                this.trackEvent('Login Form Submitted', formProperties);
                 break;
                 
             case 'signup-submit':
-                event.preventDefault();
-                this.trackSignup(formData, formProperties);
+                // Let auth.js handle signup - don't prevent default
+                console.log('🔄 SIGNUP FORM SUBMITTED - Letting auth.js handle identification');
+                // Just track the event, don't intercept the form
+                this.trackEvent('Signup Form Submitted', formProperties);
                 break;
                 
             case 'search-submit':
