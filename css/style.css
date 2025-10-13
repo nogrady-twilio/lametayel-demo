@@ -275,8 +275,21 @@ p {
     border-radius: var(--radius-md);
     width: 250px;
     font-size: 0.9rem;
-    color: var(--text-primary);
-    background-color: var(--white);
+    color: #333333 !important;
+    background-color: #FFFFFF !important;
+    text-shadow: none !important;
+}
+
+.search-input::placeholder {
+    color: #757575 !important;
+    opacity: 1 !important;
+}
+
+/* Target the specific search input by ID */
+#search-input {
+    background-color: #FFFFFF !important;
+    color: #333333 !important;
+    border: 2px solid #ddd !important;
 }
 
 .search-btn {
@@ -491,12 +504,23 @@ p {
     border: 1px solid #ddd;
     border-radius: var(--radius-md);
     font-size: 0.95rem;
-    background-color: var(--white);
-    color: var(--text-primary);
+    background-color: #FFFFFF !important;
+    color: #333333 !important;
+    text-shadow: none !important;
 }
 
 .search-field input::placeholder {
-    color: var(--text-secondary);
+    color: #757575 !important;
+    opacity: 1 !important;
+}
+
+/* Specific targeting for destination search */
+#destination-search,
+#travel-date,
+#travelers {
+    background-color: #FFFFFF !important;
+    color: #333333 !important;
+    border: 2px solid #ddd !important;
 }
 
 .search-submit {
@@ -568,18 +592,53 @@ section {
 /* Ensure dynamic offer cards text is always visible */
 .offer-card h3,
 .offer-card .offer-title {
-    color: var(--text-primary) !important;
+    color: #333333 !important;
     font-weight: 700 !important;
+    text-shadow: none !important;
 }
 
 .offer-card p,
 .offer-card .offer-description {
-    color: var(--text-secondary) !important;
+    color: #757575 !important;
+    text-shadow: none !important;
 }
 
 .offer-card .discount-amount {
-    color: var(--primary-orange) !important;
+    color: #FF7700 !important;
     font-weight: 700 !important;
+}
+
+/* Fix offer icons visibility */
+.offer-card .offer-icon i,
+.offer-card i {
+    color: #FF7700 !important;
+    text-shadow: none !important;
+}
+
+/* More specific targeting for all offer elements */
+.dynamic-offers .offer-card * {
+    color: inherit !important;
+}
+
+.dynamic-offers .offer-card {
+    background-color: #FFFFFF !important;
+    color: #333333 !important;
+}
+
+/* Override any potential white text */
+.offers-grid * {
+    color: #333333 !important;
+}
+
+.offers-grid h3,
+.offers-grid .offer-title {
+    color: #333333 !important;
+    font-weight: 700 !important;
+}
+
+.offers-grid p,
+.offers-grid .offer-description {
+    color: #757575 !important;
 }
 
 .offers-grid {
@@ -1489,6 +1548,63 @@ section {
     font-weight: 600;
     margin-bottom: var(--spacing-lg);
     color: var(--primary-orange);
+}
+
+/* GLOBAL TEXT VISIBILITY FIXES - Override any white text */
+input[type="text"],
+input[type="date"],
+input[type="search"],
+select,
+textarea {
+    color: #333333 !important;
+    background-color: #FFFFFF !important;
+    text-shadow: none !important;
+    border: 1px solid #ddd !important;
+}
+
+input[type="text"]:focus,
+input[type="date"]:focus,
+input[type="search"]:focus,
+select:focus {
+    color: #333333 !important;
+    background-color: #FFFFFF !important;
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: #757575 !important;
+    opacity: 1 !important;
+}
+
+/* Force dark text on all dynamic content */
+#offers-grid,
+#offers-grid *,
+.offer-card,
+.offer-card * {
+    color: #333333 !important;
+}
+
+.offer-card h1,
+.offer-card h2, 
+.offer-card h3,
+.offer-card h4,
+.offer-card h5,
+.offer-card h6 {
+    color: #333333 !important;
+    font-weight: 700 !important;
+}
+
+.offer-card p,
+.offer-card span:not(.discount-amount) {
+    color: #757575 !important;
+}
+
+.offer-card .discount-amount {
+    color: #FF7700 !important;
+}
+
+.offer-card i {
+    color: #FF7700 !important;
 }
 
 /* Animations */

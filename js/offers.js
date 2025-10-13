@@ -742,11 +742,19 @@ const offersStyles = `
     
     .offer-content {
         padding: 1.25rem;
-        color: var(--text-primary) !important;
+        color: #333333 !important;
+        background-color: #FFFFFF !important;
     }
     
     .offer-content h3, .offer-content p, .offer-content span {
         color: inherit !important;
+        text-shadow: none !important;
+    }
+    
+    .offer-icon i {
+        color: #FF7700 !important;
+        text-shadow: none !important;
+        font-size: 2.5rem;
     }
     
     .offer-icon {
@@ -764,14 +772,16 @@ const offersStyles = `
         font-weight: 600;
         margin-bottom: 0.5rem;
         line-height: 1.3;
-        color: var(--text-primary) !important;
+        color: #333333 !important;
+        text-shadow: none !important;
     }
     
     .offer-description {
-        color: var(--text-secondary) !important;
+        color: #757575 !important;
         font-size: 0.9rem;
         margin-bottom: 1rem;
         line-height: 1.4;
+        text-shadow: none !important;
     }
     
     .offer-discount {
@@ -786,13 +796,15 @@ const offersStyles = `
         display: block;
         font-size: 1.3rem;
         font-weight: bold;
-        color: var(--primary-orange) !important;
+        color: #FF7700 !important;
+        text-shadow: none !important;
     }
     
     .offer-urgency {
         font-size: 0.8rem;
-        color: var(--text-secondary) !important;
+        color: #757575 !important;
         font-style: italic;
+        text-shadow: none !important;
     }
     
     .offer-benefits {
