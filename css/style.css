@@ -275,6 +275,8 @@ p {
     border-radius: var(--radius-md);
     width: 250px;
     font-size: 0.9rem;
+    color: var(--text-primary);
+    background-color: var(--white);
 }
 
 .search-btn {
@@ -490,6 +492,11 @@ p {
     border-radius: var(--radius-md);
     font-size: 0.95rem;
     background-color: var(--white);
+    color: var(--text-primary);
+}
+
+.search-field input::placeholder {
+    color: var(--text-secondary);
 }
 
 .search-submit {
@@ -553,6 +560,11 @@ section {
     background-color: var(--bg-accent);
 }
 
+.dynamic-offers .section-title {
+    color: var(--text-primary);
+    font-weight: 700;
+}
+
 .offers-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -608,11 +620,15 @@ section {
 .offer-title {
     font-size: 1.2rem;
     margin-bottom: var(--spacing-sm);
+    color: var(--text-primary);
+    font-weight: 600;
 }
 
 .offer-description {
     color: var(--text-secondary);
     margin-bottom: var(--spacing-md);
+    font-size: 0.95rem;
+    line-height: 1.5;
 }
 
 .offer-price {
@@ -1316,6 +1332,13 @@ section {
     border-radius: var(--radius-md);
     font-size: 0.95rem;
     transition: var(--transition-fast);
+    color: var(--text-primary);
+    background-color: var(--white);
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: var(--text-secondary);
 }
 
 .form-group input:focus,
