@@ -102,12 +102,13 @@ class AuthManager {
                         email_domain: email.split('@')[1]
                     });
                     
-                    // Identify user
-                    analytics.identify(userData.id, {
+                    // Identify user with email as user_id
+                    analytics.identify(userData.email, {  // Using email as user_id
                         email: userData.email,
                         firstName: userData.firstName,
                         lastName: userData.lastName,
-                        login_timestamp: new Date().toISOString()
+                        login_timestamp: new Date().toISOString(),
+                        login_method: 'email'
                     });
                 }
             } else {
@@ -182,13 +183,17 @@ class AuthManager {
                     marketing_consent: marketingConsent
                 });
                 
-                // Identify user
-                analytics.identify(userData.id, {
+                // Identify user with comprehensive traits
+                analytics.identify(userData.email, {  // Using email as user_id
                     email: userData.email,
                     firstName: userData.firstName,
                     lastName: userData.lastName,
                     created_at: new Date().toISOString(),
-                    marketing_consent: marketingConsent
+                    login_timestamp: new Date().toISOString(),
+                    marketing_consent: marketingConsent,
+                    signup_method: 'email',
+                    account_type: 'standard',
+                    user_status: 'active'
                 });
             }
             
@@ -225,13 +230,15 @@ class AuthManager {
                     social_provider: provider
                 });
                 
-                // Identify user
-                analytics.identify(userData.id, {
+                // Identify user with email as user_id
+                analytics.identify(userData.email, {  // Using email as user_id
                     email: userData.email,
                     firstName: userData.firstName,
                     lastName: userData.lastName,
                     social_login: provider,
-                    login_timestamp: new Date().toISOString()
+                    login_timestamp: new Date().toISOString(),
+                    login_method: provider,
+                    account_type: 'social'
                 });
             }
             
