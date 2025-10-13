@@ -288,8 +288,9 @@ p {
 /* Target the specific search input by ID */
 #search-input {
     background-color: #FFFFFF !important;
-    color: #333333 !important;
+    color: #000000 !important;
     border: 2px solid #ddd !important;
+    -webkit-text-fill-color: #000000 !important;
 }
 
 .search-btn {
@@ -517,10 +518,13 @@ p {
 /* Specific targeting for destination search */
 #destination-search,
 #travel-date,
-#travelers {
+#travelers,
+#search-input {
     background-color: #FFFFFF !important;
-    color: #333333 !important;
+    color: #000000 !important;
     border: 2px solid #ddd !important;
+    -webkit-text-fill-color: #000000 !important;
+    text-shadow: none !important;
 }
 
 .search-submit {
@@ -1550,30 +1554,61 @@ section {
     color: var(--primary-orange);
 }
 
-/* GLOBAL TEXT VISIBILITY FIXES - Override any white text */
+/* CRITICAL TEXT VISIBILITY FIXES - FORCE ALL TEXT TO BE BLACK */
 input[type="text"],
+input[type="email"], 
+input[type="password"],
 input[type="date"],
 input[type="search"],
+input[type="number"],
+input[type="tel"],
+input[type="url"],
 select,
 textarea {
-    color: #333333 !important;
+    color: #000000 !important;
     background-color: #FFFFFF !important;
     text-shadow: none !important;
-    border: 1px solid #ddd !important;
+    border: 2px solid #ddd !important;
+    -webkit-text-fill-color: #000000 !important;
+    -webkit-appearance: none;
 }
 
 input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
 input[type="date"]:focus,
 input[type="search"]:focus,
-select:focus {
-    color: #333333 !important;
+input[type="number"]:focus,
+input[type="tel"]:focus,
+input[type="url"]:focus,
+select:focus,
+textarea:focus {
+    color: #000000 !important;
     background-color: #FFFFFF !important;
+    -webkit-text-fill-color: #000000 !important;
+    border-color: #FF7700 !important;
 }
 
 input::placeholder,
 textarea::placeholder {
-    color: #757575 !important;
+    color: #666666 !important;
     opacity: 1 !important;
+    -webkit-text-fill-color: #666666 !important;
+}
+
+/* Force black text for ALL inputs regardless of browser */
+input, select, textarea {
+    color: #000000 !important;
+    -webkit-text-fill-color: #000000 !important;
+}
+
+/* Specific overrides for common form elements */
+.form-group input,
+.form-group select,
+.form-group textarea {
+    color: #000000 !important;
+    background-color: #FFFFFF !important;
+    -webkit-text-fill-color: #000000 !important;
 }
 
 /* Force dark text on all dynamic content */
@@ -1605,6 +1640,33 @@ textarea::placeholder {
 
 .offer-card i {
     color: #FF7700 !important;
+}
+
+/* COMPREHENSIVE INPUT TEXT FIXES - ALL BROWSERS */
+* input,
+* select,
+* textarea {
+    color: #000000 !important;
+    -webkit-text-fill-color: #000000 !important;
+    background-color: #FFFFFF !important;
+}
+
+/* Modal inputs - signup/login forms */
+.modal input[type="text"],
+.modal input[type="email"],
+.modal input[type="password"],
+.modal input[type="tel"] {
+    color: #000000 !important;
+    background-color: #FFFFFF !important;
+    -webkit-text-fill-color: #000000 !important;
+    border: 2px solid #ddd !important;
+}
+
+/* Newsletter form */
+#newsletter-email {
+    color: #000000 !important;
+    background-color: #FFFFFF !important;
+    -webkit-text-fill-color: #000000 !important;
 }
 
 /* Animations */
