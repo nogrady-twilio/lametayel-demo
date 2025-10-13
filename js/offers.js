@@ -742,6 +742,11 @@ const offersStyles = `
     
     .offer-content {
         padding: 1.25rem;
+        color: var(--text-primary) !important;
+    }
+    
+    .offer-content h3, .offer-content p, .offer-content span {
+        color: inherit !important;
     }
     
     .offer-icon {
@@ -759,10 +764,11 @@ const offersStyles = `
         font-weight: 600;
         margin-bottom: 0.5rem;
         line-height: 1.3;
+        color: var(--text-primary) !important;
     }
     
     .offer-description {
-        color: var(--text-secondary);
+        color: var(--text-secondary) !important;
         font-size: 0.9rem;
         margin-bottom: 1rem;
         line-height: 1.4;
@@ -780,12 +786,12 @@ const offersStyles = `
         display: block;
         font-size: 1.3rem;
         font-weight: bold;
-        color: var(--primary-blue);
+        color: var(--primary-orange) !important;
     }
     
     .offer-urgency {
         font-size: 0.8rem;
-        color: var(--text-secondary);
+        color: var(--text-secondary) !important;
         font-style: italic;
     }
     

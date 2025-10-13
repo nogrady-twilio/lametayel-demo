@@ -565,6 +565,23 @@ section {
     font-weight: 700;
 }
 
+/* Ensure dynamic offer cards text is always visible */
+.offer-card h3,
+.offer-card .offer-title {
+    color: var(--text-primary) !important;
+    font-weight: 700 !important;
+}
+
+.offer-card p,
+.offer-card .offer-description {
+    color: var(--text-secondary) !important;
+}
+
+.offer-card .discount-amount {
+    color: var(--primary-orange) !important;
+    font-weight: 700 !important;
+}
+
 .offers-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
