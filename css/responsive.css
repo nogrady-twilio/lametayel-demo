@@ -1,0 +1,546 @@
+/* ===================================
+   RESPONSIVE STYLES
+   Mobile-first approach
+   =================================== */
+
+/* Large Tablets and Small Desktops */
+@media (max-width: 1024px) {
+    .container {
+        padding: 0 var(--spacing-md);
+    }
+    
+    .hero-title {
+        font-size: 3rem;
+    }
+    
+    .search-form {
+        grid-template-columns: 1fr 1fr 1fr auto;
+        gap: var(--spacing-sm);
+    }
+    
+    .destination-card.featured {
+        grid-column: span 1;
+    }
+    
+    .blog-card.featured {
+        grid-column: span 1;
+    }
+    
+    .footer-content {
+        grid-template-columns: 2fr 1fr 1fr;
+        gap: var(--spacing-lg);
+    }
+}
+
+/* Tablets */
+@media (max-width: 768px) {
+    /* Header */
+    .nav-menu {
+        position: fixed;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background-color: var(--white);
+        box-shadow: var(--shadow-lg);
+        transform: translateY(-100%);
+        transition: var(--transition-normal);
+        opacity: 0;
+        visibility: hidden;
+    }
+    
+    .nav-menu.active {
+        transform: translateY(0);
+        opacity: 1;
+        visibility: visible;
+    }
+    
+    .nav-list {
+        flex-direction: column;
+        padding: var(--spacing-lg) 0;
+        gap: var(--spacing-md);
+    }
+    
+    .nav-actions {
+        gap: var(--spacing-md);
+    }
+    
+    .search-container {
+        display: none;
+    }
+    
+    .auth-buttons {
+        gap: var(--spacing-xs);
+    }
+    
+    .btn-secondary,
+    .btn-primary {
+        padding: var(--spacing-xs) var(--spacing-md);
+        font-size: 0.85rem;
+    }
+    
+    .mobile-menu-toggle {
+        display: flex;
+    }
+    
+    /* Hero */
+    .hero {
+        height: 80vh;
+        min-height: 500px;
+    }
+    
+    .hero-title {
+        font-size: 2.5rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.1rem;
+    }
+    
+    .search-form {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-md);
+    }
+    
+    .search-submit {
+        justify-self: stretch;
+    }
+    
+    /* Sections */
+    section {
+        padding: var(--spacing-2xl) 0;
+    }
+    
+    .section-title {
+        font-size: 2rem;
+    }
+    
+    /* Grids */
+    .destinations-grid,
+    .experiences-grid,
+    .products-grid,
+    .blog-grid {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-lg);
+    }
+    
+    .offers-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    /* Gear Categories */
+    .gear-categories {
+        justify-content: flex-start;
+        overflow-x: auto;
+        padding-bottom: var(--spacing-sm);
+    }
+    
+    .category-btn {
+        white-space: nowrap;
+        min-width: auto;
+    }
+    
+    /* Newsletter */
+    .newsletter-form .form-group {
+        flex-direction: column;
+        gap: var(--spacing-md);
+    }
+    
+    .newsletter-form input {
+        width: 100%;
+    }
+    
+    /* Footer */
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-xl);
+        text-align: center;
+    }
+    
+    .footer-bottom {
+        flex-direction: column;
+        gap: var(--spacing-md);
+        text-align: center;
+    }
+    
+    .footer-legal {
+        justify-content: center;
+    }
+    
+    /* Modal */
+    .modal-content {
+        width: 95%;
+        margin: var(--spacing-md);
+    }
+    
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Mobile Phones */
+@media (max-width: 480px) {
+    :root {
+        --spacing-xs: 0.2rem;
+        --spacing-sm: 0.4rem;
+        --spacing-md: 0.8rem;
+        --spacing-lg: 1.2rem;
+        --spacing-xl: 1.6rem;
+        --spacing-2xl: 2.4rem;
+        --spacing-3xl: 3.2rem;
+    }
+    
+    .container {
+        padding: 0 var(--spacing-md);
+    }
+    
+    /* Header */
+    .navbar {
+        padding: var(--spacing-sm) 0;
+    }
+    
+    .logo-text {
+        font-size: 1.3rem;
+    }
+    
+    .cart-btn {
+        padding: var(--spacing-xs);
+    }
+    
+    .auth-buttons .btn-secondary,
+    .auth-buttons .btn-primary {
+        padding: var(--spacing-xs) var(--spacing-sm);
+        font-size: 0.8rem;
+    }
+    
+    /* Hero */
+    .hero {
+        height: 70vh;
+        min-height: 400px;
+    }
+    
+    .hero-title {
+        font-size: 2rem;
+        margin-bottom: var(--spacing-md);
+    }
+    
+    .hero-subtitle {
+        font-size: 1rem;
+        margin-bottom: var(--spacing-xl);
+    }
+    
+    .hero-search {
+        padding: var(--spacing-md);
+    }
+    
+    .search-field input,
+    .search-field select {
+        padding: var(--spacing-xs) var(--spacing-sm) var(--spacing-xs) 35px;
+        font-size: 0.9rem;
+    }
+    
+    .search-field i {
+        left: 10px;
+        font-size: 0.9rem;
+    }
+    
+    /* Typography */
+    h1 {
+        font-size: 2rem;
+    }
+    
+    h2 {
+        font-size: 1.6rem;
+    }
+    
+    h3 {
+        font-size: 1.3rem;
+    }
+    
+    .section-title {
+        font-size: 1.8rem;
+    }
+    
+    .section-subtitle {
+        font-size: 1rem;
+    }
+    
+    /* Cards */
+    .destination-image,
+    .experience-image,
+    .product-image,
+    .blog-image {
+        height: 180px;
+    }
+    
+    .destination-content,
+    .experience-content,
+    .product-content,
+    .blog-content {
+        padding: var(--spacing-md);
+    }
+    
+    .destination-title,
+    .experience-title,
+    .product-title,
+    .blog-title {
+        font-size: 1.1rem;
+    }
+    
+    .destination-description,
+    .experience-description,
+    .product-description,
+    .blog-excerpt {
+        font-size: 0.9rem;
+    }
+    
+    /* Stats and Meta */
+    .destination-stats,
+    .experience-meta {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--spacing-sm);
+    }
+    
+    .blog-meta {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--spacing-xs);
+    }
+    
+    /* Product Cards */
+    .product-price {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--spacing-xs);
+    }
+    
+    .product-rating {
+        flex-wrap: wrap;
+    }
+    
+    /* Newsletter */
+    .newsletter-title {
+        font-size: 1.8rem;
+    }
+    
+    .newsletter-subtitle {
+        font-size: 1rem;
+    }
+    
+    /* Footer */
+    .social-links {
+        justify-content: center;
+    }
+    
+    .footer-legal {
+        flex-direction: column;
+        gap: var(--spacing-sm);
+    }
+    
+    /* Modal */
+    .modal-content {
+        width: 98%;
+        margin: var(--spacing-sm);
+    }
+    
+    .modal-header,
+    .modal-body {
+        padding: var(--spacing-md);
+    }
+    
+    .modal-title {
+        font-size: 1.2rem;
+    }
+    
+    /* Cart */
+    .cart-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--spacing-sm);
+    }
+    
+    .cart-item-image {
+        width: 80px;
+        height: 80px;
+        align-self: center;
+    }
+    
+    .cart-item-details {
+        text-align: center;
+        width: 100%;
+    }
+    
+    .cart-item-quantity {
+        justify-content: center;
+        width: 100%;
+    }
+}
+
+/* Extra Small Devices */
+@media (max-width: 360px) {
+    .hero-title {
+        font-size: 1.8rem;
+    }
+    
+    .section-title {
+        font-size: 1.6rem;
+    }
+    
+    .newsletter-title {
+        font-size: 1.6rem;
+    }
+    
+    .btn-primary,
+    .btn-secondary {
+        font-size: 0.85rem;
+        padding: var(--spacing-xs) var(--spacing-sm);
+    }
+    
+    .search-field input,
+    .search-field select {
+        font-size: 0.85rem;
+    }
+}
+
+/* High-resolution displays */
+@media (min-width: 1400px) {
+    .container {
+        max-width: 1400px;
+    }
+    
+    .hero-title {
+        font-size: 4rem;
+    }
+    
+    .section-title {
+        font-size: 3rem;
+    }
+    
+    .destinations-grid,
+    .products-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+    
+    .experiences-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* Print styles */
+@media print {
+    .header,
+    .hero-nav,
+    .newsletter,
+    .footer,
+    .modal {
+        display: none !important;
+    }
+    
+    .hero {
+        height: auto;
+        min-height: auto;
+        padding: var(--spacing-lg) 0;
+    }
+    
+    .hero-content {
+        color: var(--text-primary);
+    }
+    
+    section {
+        padding: var(--spacing-lg) 0;
+        page-break-inside: avoid;
+    }
+    
+    .card,
+    .destination-card,
+    .experience-card,
+    .product-card,
+    .blog-card {
+        page-break-inside: avoid;
+    }
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+    
+    .hero-slide {
+        transition: none;
+    }
+    
+    .reveal {
+        transition: none;
+    }
+}
+
+/* High contrast preference */
+@media (prefers-contrast: high) {
+    :root {
+        --primary-orange: #CC5500;
+        --primary-light: #2d5a8b;
+        --primary-dark: #0f2537;
+        --text-primary: #000000;
+        --text-secondary: #4a5568;
+        --shadow-sm: 0 2px 4px rgba(0,0,0,0.3);
+        --shadow-md: 0 4px 6px rgba(0,0,0,0.3);
+        --shadow-lg: 0 10px 25px rgba(0,0,0,0.4);
+    }
+    
+    .btn-primary,
+    .btn-secondary {
+        border-width: 2px;
+    }
+    
+    .card,
+    .destination-card,
+    .experience-card,
+    .product-card,
+    .blog-card {
+        border: 1px solid #333;
+    }
+}
+
+/* Dark mode preference */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg-primary: #1a202c;
+        --bg-secondary: #2d3748;
+        --bg-accent: #2a4365;
+        --text-primary: #f7fafc;
+        --text-secondary: #a0aec0;
+        --text-light: #718096;
+        --white: #f7fafc;
+        --light-gray: #2d3748;
+        --medium-gray: #a0aec0;
+        --dark-gray: #1a202c;
+    }
+    
+    .header {
+        background-color: var(--bg-secondary);
+    }
+    
+    .card,
+    .destination-card,
+    .experience-card,
+    .product-card,
+    .blog-card,
+    .offer-card {
+        background-color: var(--bg-secondary);
+    }
+    
+    .modal-content {
+        background-color: var(--bg-secondary);
+    }
+    
+    input,
+    select,
+    textarea {
+        background-color: var(--bg-primary);
+        color: var(--text-primary);
+        border-color: var(--medium-gray);
+    }
+}

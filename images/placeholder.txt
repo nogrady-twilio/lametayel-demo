@@ -1,0 +1,53 @@
+# Image Placeholders
+
+This directory contains placeholder references for images used in the Lametayel demo website.
+
+In a real implementation, these would be replaced with actual images from:
+- High-quality travel photography
+- Product images for travel gear
+- Partner/affiliate logos
+- User interface elements
+
+## Required Images:
+
+### Brand Assets:
+- lametayel-logo.svg
+
+### Hero Section:
+- hero-1.jpg (landscape travel scene)
+- hero-2.jpg (cultural destination)
+- hero-3.jpg (adventure/nature scene)
+
+### Destinations:
+- italy.jpg
+- japan.jpg  
+- iceland.jpg
+- bali.jpg
+
+### Experiences:
+- cooking-class.jpg
+- northern-lights.jpg
+- temple-tour.jpg
+
+### Products (Travel Gear):
+- travel-backpack.jpg
+- power-bank.jpg
+- travel-jacket.jpg
+
+### Blog Articles:
+- blog-italy-guide.jpg
+- blog-budget-travel.jpg
+- blog-packing-guide.jpg
+
+### Dynamic Offers:
+- offers/italy-hotels.jpg
+- offers/italy-flights.jpg
+- offers/japan-hotels.jpg
+- offers/japan-flights.jpg
+- offers/iceland-hotels.jpg
+- offers/iceland-flights.jpg
+- offers/bali-hotels.jpg
+- offers/bali-flights.jpg
+- offers/travel-insurance.jpg
+
+All images should be optimized for web delivery with appropriate alt text for accessibility.
