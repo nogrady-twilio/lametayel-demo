@@ -1,93 +1,92 @@
-/* ===================================
-   RESPONSIVE STYLES
-   Mobile-first approach
-   =================================== */
+/* Responsive Design */
 
-/* Large Tablets and Small Desktops */
-@media (max-width: 1024px) {
+/* Large Desktop (1200px and up) */
+@media (min-width: 1200px) {
     .container {
-        padding: 0 var(--spacing-md);
+        max-width: 1400px;
     }
     
     .hero-title {
-        font-size: 3rem;
+        font-size: 4rem;
     }
     
-    .search-form {
-        grid-template-columns: 1fr 1fr 1fr auto;
-        gap: var(--spacing-sm);
-    }
-    
-    .destination-card.featured {
-        grid-column: span 1;
-    }
-    
-    .blog-card.featured {
-        grid-column: span 1;
-    }
-    
-    .footer-content {
-        grid-template-columns: 2fr 1fr 1fr;
-        gap: var(--spacing-lg);
+    .destinations-grid {
+        grid-template-columns: 2.5fr 1fr 1fr;
     }
 }
 
-/* Tablets */
-@media (max-width: 768px) {
-    /* Header */
+/* Desktop (992px to 1199px) */
+@media (max-width: 1199px) {
+    .container {
+        max-width: 960px;
+    }
+    
+    .destinations-grid {
+        grid-template-columns: 2fr 1fr 1fr;
+    }
+    
+    .footer-content {
+        grid-template-columns: 1.5fr repeat(3, 1fr);
+        gap: 1.5rem;
+    }
+}
+
+/* Tablet (768px to 991px) */
+@media (max-width: 991px) {
+    .container {
+        padding: 0 16px;
+    }
+    
+    /* Navigation */
     .nav-menu {
         position: fixed;
-        top: 100%;
-        left: 0;
-        width: 100%;
-        background-color: var(--white);
-        box-shadow: var(--shadow-lg);
-        transform: translateY(-100%);
-        transition: var(--transition-normal);
-        opacity: 0;
-        visibility: hidden;
+        top: 0;
+        right: -100%;
+        height: 100vh;
+        width: 280px;
+        background-color: white;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        padding: 80px 2rem 2rem;
+        box-shadow: var(--shadow-xl);
+        transition: right 0.3s ease;
+        z-index: 999;
     }
     
     .nav-menu.active {
-        transform: translateY(0);
-        opacity: 1;
-        visibility: visible;
+        right: 0;
     }
     
-    .nav-list {
-        flex-direction: column;
-        padding: var(--spacing-lg) 0;
-        gap: var(--spacing-md);
+    .nav-menu .nav-link {
+        width: 100%;
+        padding: 16px 0;
+        border-bottom: 1px solid var(--border-color);
     }
     
-    .nav-actions {
-        gap: var(--spacing-md);
+    .nav-menu .btn-primary {
+        margin-top: 1rem;
+        width: 100%;
     }
     
-    .search-container {
-        display: none;
-    }
-    
-    .auth-buttons {
-        gap: var(--spacing-xs);
-    }
-    
-    .btn-secondary,
-    .btn-primary {
-        padding: var(--spacing-xs) var(--spacing-md);
-        font-size: 0.85rem;
-    }
-    
-    .mobile-menu-toggle {
+    .nav-toggle {
         display: flex;
+        z-index: 1001;
     }
     
-    /* Hero */
-    .hero {
-        height: 80vh;
-        min-height: 500px;
+    .nav-toggle.active span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
     }
     
+    .nav-toggle.active span:nth-child(2) {
+        opacity: 0;
+    }
+    
+    .nav-toggle.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(7px, -6px);
+    }
+    
+    /* Hero Section */
     .hero-title {
         font-size: 2.5rem;
     }
@@ -97,450 +96,563 @@
     }
     
     .search-form {
-        grid-template-columns: 1fr;
-        gap: var(--spacing-md);
+        flex-direction: column;
+        gap: 1rem;
+        padding: 1rem;
     }
     
-    .search-submit {
-        justify-self: stretch;
+    .search-btn {
+        width: 100%;
     }
     
-    /* Sections */
-    section {
-        padding: var(--spacing-2xl) 0;
-    }
-    
-    .section-title {
-        font-size: 2rem;
+    .popular-destinations {
+        flex-direction: column;
+        gap: 0.75rem;
     }
     
     /* Grids */
-    .destinations-grid,
-    .experiences-grid,
-    .products-grid,
-    .blog-grid {
+    .articles-grid {
         grid-template-columns: 1fr;
-        gap: var(--spacing-lg);
+        gap: 1.5rem;
+    }
+    
+    .destinations-grid {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: repeat(3, 250px);
+        gap: 1rem;
+    }
+    
+    .destination-card.large {
+        grid-column: span 2;
+        grid-row: span 1;
+    }
+    
+    .services-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+    }
+    
+    .offers-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+    }
+    
+    /* Footer */
+    .footer-content {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+    }
+    
+    .footer-bottom {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+    }
+    
+    /* Section Spacing */
+    section {
+        padding: 60px 0;
+    }
+    
+    .section-header {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+    }
+}
+
+/* Mobile Large (576px to 767px) */
+@media (max-width: 767px) {
+    /* Typography */
+    h1 { font-size: 2rem; }
+    h2 { font-size: 1.75rem; }
+    h3 { font-size: 1.25rem; }
+    
+    /* Navigation */
+    .navbar .container {
+        padding: 0.75rem 16px;
+    }
+    
+    .logo-text {
+        font-size: 20px;
+    }
+    
+    .nav-menu {
+        width: 100%;
+        right: -100%;
+    }
+    
+    /* Hero Section */
+    .hero {
+        height: 80vh;
+        padding-top: 80px;
+    }
+    
+    .hero-title {
+        font-size: 2rem;
+        margin-bottom: 0.75rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 1rem;
+        margin-bottom: 2rem;
+    }
+    
+    .search-input {
+        padding: 14px 14px 14px 44px;
+        font-size: 15px;
+    }
+    
+    .search-btn {
+        padding: 14px 24px;
+        font-size: 14px;
+    }
+    
+    .destination-tags {
+        justify-content: center;
+    }
+    
+    .destination-tag {
+        font-size: 13px;
+        padding: 6px 12px;
+    }
+    
+    /* Grids */
+    .articles-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .destinations-grid {
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(5, 200px);
+    }
+    
+    .destination-card.large {
+        grid-column: span 1;
+        grid-row: span 1;
+    }
+    
+    .services-grid {
+        grid-template-columns: 1fr;
     }
     
     .offers-grid {
         grid-template-columns: 1fr;
     }
     
-    /* Gear Categories */
-    .gear-categories {
-        justify-content: flex-start;
-        overflow-x: auto;
-        padding-bottom: var(--spacing-sm);
+    /* Article Cards */
+    .article-image {
+        height: 200px;
     }
     
-    .category-btn {
-        white-space: nowrap;
-        min-width: auto;
+    .article-content {
+        padding: 1rem;
+    }
+    
+    .article-title {
+        font-size: 1.1rem;
+    }
+    
+    /* Service Cards */
+    .service-card {
+        padding: 1.5rem;
+    }
+    
+    .service-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 1.5rem;
     }
     
     /* Newsletter */
     .newsletter-form .form-group {
         flex-direction: column;
-        gap: var(--spacing-md);
+        width: 100%;
     }
     
-    .newsletter-form input {
-        width: 100%;
+    .newsletter-input {
+        margin-bottom: 1rem;
+    }
+    
+    .newsletter-title {
+        font-size: 1.5rem;
+    }
+    
+    .newsletter-description {
+        font-size: 1rem;
     }
     
     /* Footer */
     .footer-content {
         grid-template-columns: 1fr;
-        gap: var(--spacing-xl);
         text-align: center;
     }
     
-    .footer-bottom {
-        flex-direction: column;
-        gap: var(--spacing-md);
-        text-align: center;
-    }
-    
-    .footer-legal {
-        justify-content: center;
+    .footer-brand .logo-text {
+        font-size: 24px;
     }
     
     /* Modal */
     .modal-content {
         width: 95%;
-        margin: var(--spacing-md);
+        margin: 20px;
     }
     
-    .form-row {
-        grid-template-columns: 1fr;
-    }
-}
-
-/* Mobile Phones */
-@media (max-width: 480px) {
-    :root {
-        --spacing-xs: 0.2rem;
-        --spacing-sm: 0.4rem;
-        --spacing-md: 0.8rem;
-        --spacing-lg: 1.2rem;
-        --spacing-xl: 1.6rem;
-        --spacing-2xl: 2.4rem;
-        --spacing-3xl: 3.2rem;
+    .modal-header {
+        padding: 1rem 1.5rem;
     }
     
-    .container {
-        padding: 0 var(--spacing-md);
+    .modal-body {
+        padding: 1.5rem;
     }
     
-    /* Header */
-    .navbar {
-        padding: var(--spacing-sm) 0;
+    .modal-title {
+        font-size: 1.25rem;
     }
     
-    .logo-text {
-        font-size: 1.3rem;
-    }
-    
-    .cart-btn {
-        padding: var(--spacing-xs);
-    }
-    
-    .auth-buttons .btn-secondary,
-    .auth-buttons .btn-primary {
-        padding: var(--spacing-xs) var(--spacing-sm);
-        font-size: 0.8rem;
-    }
-    
-    /* Hero */
-    .hero {
-        height: 70vh;
-        min-height: 400px;
-    }
-    
-    .hero-title {
-        font-size: 2rem;
-        margin-bottom: var(--spacing-md);
-    }
-    
-    .hero-subtitle {
-        font-size: 1rem;
-        margin-bottom: var(--spacing-xl);
-    }
-    
-    .hero-search {
-        padding: var(--spacing-md);
-    }
-    
-    .search-field input,
-    .search-field select {
-        padding: var(--spacing-xs) var(--spacing-sm) var(--spacing-xs) 35px;
-        font-size: 0.9rem;
-    }
-    
-    .search-field i {
-        left: 10px;
-        font-size: 0.9rem;
-    }
-    
-    /* Typography */
-    h1 {
-        font-size: 2rem;
-    }
-    
-    h2 {
-        font-size: 1.6rem;
-    }
-    
-    h3 {
-        font-size: 1.3rem;
+    /* Section Spacing */
+    section {
+        padding: 40px 0;
     }
     
     .section-title {
-        font-size: 1.8rem;
+        margin-bottom: 2rem;
+    }
+}
+
+/* Mobile Small (up to 575px) */
+@media (max-width: 575px) {
+    .container {
+        padding: 0 12px;
     }
     
-    .section-subtitle {
-        font-size: 1rem;
+    /* Navigation */
+    .navbar .container {
+        padding: 0.75rem 12px;
+    }
+    
+    /* Hero Section */
+    .hero {
+        height: 70vh;
+    }
+    
+    .hero-content {
+        padding: 0 12px;
+    }
+    
+    .hero-title {
+        font-size: 1.75rem;
+        line-height: 1.2;
+    }
+    
+    .hero-subtitle {
+        font-size: 0.95rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .search-form {
+        padding: 0.75rem;
+    }
+    
+    .search-input {
+        padding: 12px 12px 12px 40px;
+        font-size: 14px;
+    }
+    
+    .search-icon {
+        left: 12px;
+        font-size: 16px;
+    }
+    
+    .search-btn {
+        padding: 12px 20px;
+        font-size: 13px;
+    }
+    
+    .popular-label {
+        font-size: 13px;
+    }
+    
+    .destination-tag {
+        font-size: 12px;
+        padding: 5px 10px;
     }
     
     /* Cards */
-    .destination-image,
-    .experience-image,
-    .product-image,
-    .blog-image {
-        height: 180px;
+    .article-card,
+    .service-card,
+    .offer-card {
+        margin-bottom: 1rem;
     }
     
-    .destination-content,
-    .experience-content,
-    .product-content,
-    .blog-content {
-        padding: var(--spacing-md);
+    .article-content,
+    .service-card {
+        padding: 1rem;
     }
     
-    .destination-title,
-    .experience-title,
-    .product-title,
-    .blog-title {
-        font-size: 1.1rem;
+    .offer-content {
+        padding: 1rem;
     }
     
-    .destination-description,
-    .experience-description,
-    .product-description,
-    .blog-excerpt {
-        font-size: 0.9rem;
+    .destination-content {
+        padding: 1.5rem 1rem 1rem;
     }
     
-    /* Stats and Meta */
-    .destination-stats,
-    .experience-meta {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: var(--spacing-sm);
+    /* Typography adjustments */
+    .section-title {
+        font-size: 1.5rem;
     }
     
-    .blog-meta {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: var(--spacing-xs);
+    .article-title,
+    .service-title {
+        font-size: 1rem;
     }
     
-    /* Product Cards */
-    .product-price {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: var(--spacing-xs);
-    }
-    
-    .product-rating {
-        flex-wrap: wrap;
+    .destination-name {
+        font-size: 1.25rem;
     }
     
     /* Newsletter */
     .newsletter-title {
-        font-size: 1.8rem;
+        font-size: 1.25rem;
     }
     
-    .newsletter-subtitle {
-        font-size: 1rem;
+    .newsletter-description {
+        font-size: 0.95rem;
+    }
+    
+    .newsletter-input,
+    .newsletter-btn {
+        padding: 12px 16px;
+        font-size: 14px;
     }
     
     /* Footer */
-    .social-links {
-        justify-content: center;
+    .footer {
+        padding: 2rem 0 1rem;
     }
     
-    .footer-legal {
-        flex-direction: column;
-        gap: var(--spacing-sm);
+    .footer-brand .logo-text {
+        font-size: 20px;
     }
     
-    /* Modal */
+    .footer-description {
+        font-size: 14px;
+    }
+    
+    .footer-social {
+        gap: 0.75rem;
+    }
+    
+    .social-link {
+        width: 36px;
+        height: 36px;
+        font-size: 14px;
+    }
+    
+    /* Modal adjustments */
     .modal-content {
         width: 98%;
-        margin: var(--spacing-sm);
+        margin: 10px;
     }
     
     .modal-header,
     .modal-body {
-        padding: var(--spacing-md);
+        padding: 1rem;
     }
     
-    .modal-title {
-        font-size: 1.2rem;
-    }
-    
-    /* Cart */
-    .cart-item {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: var(--spacing-sm);
-    }
-    
-    .cart-item-image {
-        width: 80px;
-        height: 80px;
-        align-self: center;
-    }
-    
-    .cart-item-details {
-        text-align: center;
-        width: 100%;
-    }
-    
-    .cart-item-quantity {
-        justify-content: center;
-        width: 100%;
-    }
-}
-
-/* Extra Small Devices */
-@media (max-width: 360px) {
-    .hero-title {
-        font-size: 1.8rem;
-    }
-    
-    .section-title {
-        font-size: 1.6rem;
-    }
-    
-    .newsletter-title {
-        font-size: 1.6rem;
-    }
-    
+    /* Button adjustments */
     .btn-primary,
     .btn-secondary {
-        font-size: 0.85rem;
-        padding: var(--spacing-xs) var(--spacing-sm);
+        padding: 10px 20px;
+        font-size: 13px;
     }
     
-    .search-field input,
-    .search-field select {
-        font-size: 0.85rem;
+    .service-btn,
+    .offer-btn {
+        padding: 10px 16px;
+        font-size: 13px;
+    }
+    
+    /* Form adjustments */
+    .form-group input {
+        padding: 10px 14px;
+        font-size: 14px;
     }
 }
 
-/* High-resolution displays */
-@media (min-width: 1400px) {
+/* Extra Small Mobile (up to 380px) */
+@media (max-width: 380px) {
     .container {
-        max-width: 1400px;
+        padding: 0 8px;
     }
     
     .hero-title {
-        font-size: 4rem;
+        font-size: 1.5rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 0.9rem;
     }
     
     .section-title {
-        font-size: 3rem;
+        font-size: 1.25rem;
     }
     
-    .destinations-grid,
-    .products-grid {
-        grid-template-columns: repeat(4, 1fr);
+    .search-form {
+        padding: 0.5rem;
     }
     
-    .experiences-grid {
-        grid-template-columns: repeat(3, 1fr);
+    .destination-tags {
+        gap: 0.5rem;
+    }
+    
+    .destination-tag {
+        padding: 4px 8px;
+        font-size: 11px;
+    }
+    
+    .service-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 1.25rem;
+    }
+    
+    .modal-content {
+        width: 99%;
+        margin: 5px;
     }
 }
 
-/* Print styles */
-@media print {
-    .header,
-    .hero-nav,
-    .newsletter,
-    .footer,
-    .modal {
-        display: none !important;
-    }
-    
+/* Landscape Mobile Adjustments */
+@media (max-height: 600px) and (orientation: landscape) {
     .hero {
-        height: auto;
-        min-height: auto;
-        padding: var(--spacing-lg) 0;
+        height: 100vh;
     }
     
-    .hero-content {
-        color: var(--text-primary);
+    .hero-title {
+        font-size: 1.75rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 0.95rem;
+        margin-bottom: 1rem;
+    }
+    
+    .popular-destinations {
+        margin-top: 1rem;
     }
     
     section {
-        padding: var(--spacing-lg) 0;
-        page-break-inside: avoid;
-    }
-    
-    .card,
-    .destination-card,
-    .experience-card,
-    .product-card,
-    .blog-card {
-        page-break-inside: avoid;
+        padding: 30px 0;
     }
 }
 
-/* Reduced motion preference */
+/* Print Styles */
+@media print {
+    .navbar,
+    .hero,
+    .newsletter-section,
+    .footer,
+    .modal {
+        display: none;
+    }
+    
+    .articles-section,
+    .destinations-section {
+        break-inside: avoid;
+    }
+    
+    .article-card,
+    .destination-card {
+        break-inside: avoid;
+        margin-bottom: 1rem;
+    }
+}
+
+/* High DPI Displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .hero-background {
+        background-image: url('https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=3840&h=2160&fit=crop&q=90');
+    }
+}
+
+/* Reduced Motion */
 @media (prefers-reduced-motion: reduce) {
     * {
         animation-duration: 0.01ms !important;
         animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
-    }
-    
-    .hero-slide {
-        transition: none;
-    }
-    
-    .reveal {
-        transition: none;
+        scroll-behavior: auto !important;
     }
 }
 
-/* High contrast preference */
-@media (prefers-contrast: high) {
-    :root {
-        --primary-orange: #CC5500;
-        --primary-light: #2d5a8b;
-        --primary-dark: #0f2537;
-        --text-primary: #000000;
-        --text-secondary: #4a5568;
-        --shadow-sm: 0 2px 4px rgba(0,0,0,0.3);
-        --shadow-md: 0 4px 6px rgba(0,0,0,0.3);
-        --shadow-lg: 0 10px 25px rgba(0,0,0,0.4);
-    }
-    
-    .btn-primary,
-    .btn-secondary {
-        border-width: 2px;
-    }
-    
-    .card,
-    .destination-card,
-    .experience-card,
-    .product-card,
-    .blog-card {
-        border: 1px solid #333;
-    }
-}
-
-/* Dark mode preference */
+/* Dark Mode Support */
 @media (prefers-color-scheme: dark) {
-    :root {
-        --bg-primary: #1a202c;
-        --bg-secondary: #2d3748;
-        --bg-accent: #2a4365;
-        --text-primary: #f7fafc;
-        --text-secondary: #a0aec0;
-        --text-light: #718096;
-        --white: #f7fafc;
-        --light-gray: #2d3748;
-        --medium-gray: #a0aec0;
-        --dark-gray: #1a202c;
+    /* This can be implemented later if needed */
+    /* Currently the site uses a light theme by design */
+}
+
+/* Focus Styles for Accessibility */
+@media (prefers-reduced-motion: no-preference) {
+    a:focus,
+    button:focus,
+    input:focus,
+    select:focus,
+    textarea:focus {
+        outline: 2px solid var(--primary-color);
+        outline-offset: 2px;
+    }
+}
+
+/* Hover Effects Only on Devices That Support Hover */
+@media (hover: hover) and (pointer: fine) {
+    .article-card:hover .article-image img,
+    .destination-card:hover .destination-image img {
+        transform: scale(1.05);
     }
     
-    .header {
-        background-color: var(--bg-secondary);
+    .nav-link:hover::after {
+        width: 100%;
     }
     
-    .card,
+    .destination-tag:hover {
+        transform: translateY(-2px);
+    }
+}
+
+/* Touch Device Optimizations */
+@media (hover: none) and (pointer: coarse) {
+    .nav-link::after {
+        display: none;
+    }
+    
+    .article-card,
     .destination-card,
-    .experience-card,
-    .product-card,
-    .blog-card,
+    .service-card,
     .offer-card {
-        background-color: var(--bg-secondary);
+        transform: none;
     }
     
-    .modal-content {
-        background-color: var(--bg-secondary);
+    .article-card:active,
+    .destination-card:active,
+    .service-card:active,
+    .offer-card:active {
+        transform: scale(0.98);
     }
     
-    input,
-    select,
-    textarea {
-        background-color: var(--bg-primary);
-        color: var(--text-primary);
-        border-color: var(--medium-gray);
+    /* Increase touch targets */
+    .nav-link {
+        padding: 12px 0;
+    }
+    
+    .destination-tag {
+        padding: 8px 14px;
+    }
+    
+    .social-link {
+        width: 44px;
+        height: 44px;
     }
 }

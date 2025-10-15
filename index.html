@@ -1,548 +1,285 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lametayel - Travel Guide & Experiences</title>
-    <meta name="description" content="Discover amazing travel destinations, book unique experiences, and shop for travel gear with Lametayel.">
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    
-    <!-- CSS Files -->
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/responsive.css">
-    
-    <!-- Font Awesome for Icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
-    
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    <title>Lametayel - Your Ultimate Travel Guide</title>
+    <meta name="description" content="Discover amazing travel destinations, get insider tips, and plan your perfect trip with Lametayel - Israel's premier travel resource.">
     
     <!-- Segment Analytics -->
     <script>
-        !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","debug","page","once","off","on","addSourceMiddleware","addIntegrationMiddleware","setAnonymousId","addDestinationMiddleware"];analytics.factory=function(e){return function(){var t=Array.prototype.slice.call(arguments);t.unshift(e);analytics.push(t);return analytics}};for(var e=0;e<analytics.methods.length;e++){var key=analytics.methods[e];analytics[key]=analytics.factory(key)}analytics.load=function(key,e){var t=document.createElement("script");t.type="text/javascript";t.async=!0;t.src="https://cdn.segment.com/analytics.js/v1/" + key + "/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(t,n);analytics._loadOptions=e};analytics._writeKey="h9zEt3CsQFeZ1tH78pFIx7q9SRWR85pE";;analytics.SNIPPET_VERSION="4.15.3";
-        analytics.load("h9zEt3CsQFeZ1tH78pFIx7q9SRWR85pE");
-        }}();
+      !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","debug","page","once","off","on","addSourceMiddleware","addIntegrationMiddleware","setAnonymousId","addDestinationMiddleware"];analytics.factory=function(e){return function(){var t=Array.prototype.slice.call(arguments);t.unshift(e);analytics.push(t);return analytics}};for(var e=0;e<analytics.methods.length;e++){var key=analytics.methods[e];analytics[key]=analytics.factory(key)}analytics.load=function(key,e){var t=document.createElement("script");t.type="text/javascript";t.async=!0;t.src="https://cdn.segment.com/analytics.js/v1/" + key + "/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(t,n);analytics._loadOptions=e};analytics._writeKey="gdGyGRQMgXQrevCwPmlcQ8qPwLOCS90c";;analytics.SNIPPET_VERSION="4.16.1";
+      analytics.load("gdGyGRQMgXQrevCwPmlcQ8qPwLOCS90c");
+      }}();
     </script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
     
-    <!-- UTM and Tracking Utilities -->
-    <script src="js/tracking-utils.js"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;500;600;700;800&family=Heebo:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
 </head>
 <body>
-    <!-- Header -->
-    <header class="header" id="header">
-        <nav class="navbar">
-            <div class="container">
-                <div class="nav-brand">
-                    <a href="/" class="logo" data-track="logo-click">
-                        <img src="https://media.licdn.com/dms/image/v2/C560BAQEErPB4xYG7_Q/company-logo_200_200/company-logo_200_200/0/1648478465670/lametayel_logo?e=2147483647&v=beta&t=DAOjQfU5UHkJro9oMKXRQd5RAcw_PmmjkPlAe9DqGAM" alt="Lametayel" class="logo-img">
-                        <span class="logo-text">Lametayel</span>
-                    </a>
-                </div>
-                
-                <div class="nav-menu" id="nav-menu">
-                    <ul class="nav-list">
-                        <li class="nav-item">
-                            <a href="#destinations" class="nav-link" data-track="nav-destinations">Destinations</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#experiences" class="nav-link" data-track="nav-experiences">Experiences</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#guides" class="nav-link" data-track="nav-guides">Travel Guides</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#gear" class="nav-link" data-track="nav-gear">Gear Store</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#blog" class="nav-link" data-track="nav-blog">Blog</a>
-                        </li>
-                    </ul>
-                </div>
-                
-                <div class="nav-actions">
-                    <div class="search-container">
-                        <input type="text" id="search-input" placeholder="Search destinations..." class="search-input">
-                        <button class="search-btn" data-track="search-click">
-                            <i class="fas fa-search"></i>
-                        </button>
-                    </div>
-                    
-                    <div class="user-actions">
-                        <button class="cart-btn" data-track="cart-view" id="cart-btn">
-                            <i class="fas fa-shopping-cart"></i>
-                            <span class="cart-count" id="cart-count">0</span>
-                        </button>
-                        
-                        <div class="auth-buttons">
-                            <button class="btn-secondary" id="login-btn" data-track="login-click">Login</button>
-                            <button class="btn-primary" id="signup-btn" data-track="signup-click">Sign Up</button>
-                        </div>
-                        
-                        <div class="user-menu hidden" id="user-menu">
-                            <button class="user-avatar" id="user-avatar">
-                                <i class="fas fa-user"></i>
-                            </button>
-                            <div class="dropdown-menu" id="dropdown-menu">
-                                <a href="#" class="dropdown-item" data-track="profile-view">My Profile</a>
-                                <a href="#" class="dropdown-item" data-track="bookings-view">My Bookings</a>
-                                <a href="#" class="dropdown-item" data-track="wishlist-view">Wishlist</a>
-                                <hr>
-                                <a href="#" class="dropdown-item" id="logout-btn" data-track="logout-click">Logout</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <button class="mobile-menu-toggle" id="mobile-menu-toggle">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
-            </div>
-        </nav>
-    </header>
-
-    <!-- Main Content -->
-    <main>
-        <!-- Hero Section -->
-        <section class="hero" id="hero">
-            <div class="hero-background">
-                <div class="hero-slide active" data-bg="images/hero-1.jpg"></div>
-                <div class="hero-slide" data-bg="images/hero-2.jpg"></div>
-                <div class="hero-slide" data-bg="images/hero-3.jpg"></div>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <a href="/" class="logo" data-track="logo-click">
+                    <span class="logo-text">למטייל</span>
+                    <span class="logo-subtitle">Lametayel</span>
+                </a>
             </div>
             
+            <div class="nav-menu" id="navMenu">
+                <a href="#destinations" class="nav-link" data-track="nav-destinations">Destinations</a>
+                <a href="#articles" class="nav-link" data-track="nav-articles">Travel Guides</a>
+                <a href="#gear" class="nav-link" data-track="nav-gear">Travel Gear</a>
+                <a href="#insurance" class="nav-link" data-track="nav-insurance">Insurance</a>
+                <a href="#about" class="nav-link" data-track="nav-about">About</a>
+                <button class="btn-primary" id="loginBtn" data-track="login-btn">Sign In</button>
+            </div>
+            
+            <div class="nav-toggle" id="navToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-background">
+            <div class="hero-overlay"></div>
+        </div>
+        <div class="container">
             <div class="hero-content">
-                <div class="container">
-                    <h1 class="hero-title">Discover Your Next Adventure</h1>
-                    <p class="hero-subtitle">Explore the world's most amazing destinations with our expert travel guides and exclusive offers</p>
-                    
-                    <div class="hero-search">
-                        <form class="search-form" id="hero-search-form">
-                            <div class="search-field">
-                                <i class="fas fa-map-marker-alt"></i>
-                                <input type="text" placeholder="Where do you want to go?" id="destination-search">
-                            </div>
-                            <div class="search-field">
-                                <i class="fas fa-calendar"></i>
-                                <input type="date" id="travel-date">
-                            </div>
-                            <div class="search-field">
-                                <i class="fas fa-users"></i>
-                                <select id="travelers">
-                                    <option value="1">1 Traveler</option>
-                                    <option value="2">2 Travelers</option>
-                                    <option value="3">3 Travelers</option>
-                                    <option value="4">4+ Travelers</option>
-                                </select>
-                            </div>
-                            <button type="submit" class="btn-primary search-submit" data-track="hero-search">
-                                <i class="fas fa-search"></i>
-                                Search
-                            </button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="hero-nav">
-                <button class="hero-nav-btn prev" id="hero-prev">
-                    <i class="fas fa-chevron-left"></i>
-                </button>
-                <button class="hero-nav-btn next" id="hero-next">
-                    <i class="fas fa-chevron-right"></i>
-                </button>
-            </div>
-        </section>
-
-        <!-- Dynamic Offers Section -->
-        <section class="dynamic-offers" id="dynamic-offers">
-            <div class="container">
-                <h2 class="section-title">Personalized Offers Just for You</h2>
-                <div class="offers-grid" id="offers-grid">
-                    <!-- Dynamic offers will be populated here -->
-                </div>
-            </div>
-        </section>
-
-        <!-- Popular Destinations -->
-        <section class="destinations" id="destinations">
-            <div class="container">
-                <div class="section-header">
-                    <h2 class="section-title">Popular Destinations</h2>
-                    <p class="section-subtitle">Discover the world's most sought-after travel destinations</p>
-                </div>
+                <h1 class="hero-title">Discover Your Next Adventure</h1>
+                <p class="hero-subtitle">Expert travel guides, insider tips, and personalized recommendations for unforgettable journeys</p>
                 
-                <div class="destinations-grid">
-                    <article class="destination-card featured" data-destination="italy">
-                        <div class="destination-image">
-                            <img src="images/italy.jpg" alt="Italy" loading="lazy">
-                            <div class="destination-overlay">
-                                <span class="destination-badge">Trending</span>
-                            </div>
+                <!-- Search Bar -->
+                <div class="search-container">
+                    <form class="search-form" id="searchForm">
+                        <div class="search-input-group">
+                            <i class="fas fa-search search-icon"></i>
+                            <input type="text" id="searchInput" placeholder="Where do you want to go?" class="search-input">
                         </div>
-                        <div class="destination-content">
-                            <h3 class="destination-title">Italy</h3>
-                            <p class="destination-description">From Rome's ancient wonders to Tuscany's rolling hills</p>
-                            <div class="destination-stats">
-                                <span class="stat">
-                                    <i class="fas fa-map-marked-alt"></i>
-                                    15 Cities
-                                </span>
-                                <span class="stat">
-                                    <i class="fas fa-star"></i>
-                                    4.8 Rating
-                                </span>
-                            </div>
-                            <button class="btn-primary destination-btn" data-track="destination-view" data-destination="italy">
-                                Explore Italy
-                            </button>
-                        </div>
-                    </article>
-                    
-                    <article class="destination-card" data-destination="japan">
-                        <div class="destination-image">
-                            <img src="images/japan.jpg" alt="Japan" loading="lazy">
-                        </div>
-                        <div class="destination-content">
-                            <h3 class="destination-title">Japan</h3>
-                            <p class="destination-description">Where tradition meets modern innovation</p>
-                            <div class="destination-stats">
-                                <span class="stat">
-                                    <i class="fas fa-map-marked-alt"></i>
-                                    12 Cities
-                                </span>
-                                <span class="stat">
-                                    <i class="fas fa-star"></i>
-                                    4.9 Rating
-                                </span>
-                            </div>
-                            <button class="btn-primary destination-btn" data-track="destination-view" data-destination="japan">
-                                Explore Japan
-                            </button>
-                        </div>
-                    </article>
-                    
-                    <article class="destination-card" data-destination="iceland">
-                        <div class="destination-image">
-                            <img src="images/iceland.jpg" alt="Iceland" loading="lazy">
-                        </div>
-                        <div class="destination-content">
-                            <h3 class="destination-title">Iceland</h3>
-                            <p class="destination-description">Land of fire, ice, and natural wonders</p>
-                            <div class="destination-stats">
-                                <span class="stat">
-                                    <i class="fas fa-map-marked-alt"></i>
-                                    8 Regions
-                                </span>
-                                <span class="stat">
-                                    <i class="fas fa-star"></i>
-                                    4.7 Rating
-                                </span>
-                            </div>
-                            <button class="btn-primary destination-btn" data-track="destination-view" data-destination="iceland">
-                                Explore Iceland
-                            </button>
-                        </div>
-                    </article>
-                    
-                    <article class="destination-card" data-destination="bali">
-                        <div class="destination-image">
-                            <img src="images/bali.jpg" alt="Bali" loading="lazy">
-                        </div>
-                        <div class="destination-content">
-                            <h3 class="destination-title">Bali</h3>
-                            <p class="destination-description">Tropical paradise with rich culture</p>
-                            <div class="destination-stats">
-                                <span class="stat">
-                                    <i class="fas fa-map-marked-alt"></i>
-                                    20 Areas
-                                </span>
-                                <span class="stat">
-                                    <i class="fas fa-star"></i>
-                                    4.6 Rating
-                                </span>
-                            </div>
-                            <button class="btn-primary destination-btn" data-track="destination-view" data-destination="bali">
-                                Explore Bali
-                            </button>
-                        </div>
-                    </article>
-                </div>
-            </div>
-        </section>
-
-        <!-- Experiences Section -->
-        <section class="experiences" id="experiences">
-            <div class="container">
-                <div class="section-header">
-                    <h2 class="section-title">Unique Experiences</h2>
-                    <p class="section-subtitle">Book unforgettable adventures and activities</p>
-                </div>
-                
-                <div class="experiences-grid">
-                    <div class="experience-card" data-experience="cooking-class">
-                        <div class="experience-image">
-                            <img src="images/cooking-class.jpg" alt="Cooking Class" loading="lazy">
-                            <div class="experience-price">$89</div>
-                        </div>
-                        <div class="experience-content">
-                            <h3 class="experience-title">Italian Cooking Class in Rome</h3>
-                            <p class="experience-description">Learn to make authentic pasta and tiramisu</p>
-                            <div class="experience-meta">
-                                <span class="duration">
-                                    <i class="fas fa-clock"></i>
-                                    3 hours
-                                </span>
-                                <span class="rating">
-                                    <i class="fas fa-star"></i>
-                                    4.9 (127 reviews)
-                                </span>
-                            </div>
-                            <button class="btn-primary experience-book" data-track="experience-book" data-experience="cooking-class">
-                                Book Now
-                            </button>
-                        </div>
-                    </div>
-                    
-                    <div class="experience-card" data-experience="northern-lights">
-                        <div class="experience-image">
-                            <img src="images/northern-lights.jpg" alt="Northern Lights Tour" loading="lazy">
-                            <div class="experience-price">$199</div>
-                        </div>
-                        <div class="experience-content">
-                            <h3 class="experience-title">Northern Lights Photography Tour</h3>
-                            <p class="experience-description">Chase the aurora borealis in Iceland</p>
-                            <div class="experience-meta">
-                                <span class="duration">
-                                    <i class="fas fa-clock"></i>
-                                    6 hours
-                                </span>
-                                <span class="rating">
-                                    <i class="fas fa-star"></i>
-                                    4.8 (89 reviews)
-                                </span>
-                            </div>
-                            <button class="btn-primary experience-book" data-track="experience-book" data-experience="northern-lights">
-                                Book Now
-                            </button>
-                        </div>
-                    </div>
-                    
-                    <div class="experience-card" data-experience="temple-tour">
-                        <div class="experience-image">
-                            <img src="images/temple-tour.jpg" alt="Temple Tour" loading="lazy">
-                            <div class="experience-price">$45</div>
-                        </div>
-                        <div class="experience-content">
-                            <h3 class="experience-title">Sacred Temples of Kyoto</h3>
-                            <p class="experience-description">Discover Japan's spiritual heritage</p>
-                            <div class="experience-meta">
-                                <span class="duration">
-                                    <i class="fas fa-clock"></i>
-                                    4 hours
-                                </span>
-                                <span class="rating">
-                                    <i class="fas fa-star"></i>
-                                    4.7 (156 reviews)
-                                </span>
-                            </div>
-                            <button class="btn-primary experience-book" data-track="experience-book" data-experience="temple-tour">
-                                Book Now
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Travel Gear Store -->
-        <section class="gear-store" id="gear">
-            <div class="container">
-                <div class="section-header">
-                    <h2 class="section-title">Travel Gear Store</h2>
-                    <p class="section-subtitle">Essential gear for your adventures</p>
-                </div>
-                
-                <div class="gear-categories">
-                    <button class="category-btn active" data-category="all" data-track="gear-category">All</button>
-                    <button class="category-btn" data-category="backpacks" data-track="gear-category">Backpacks</button>
-                    <button class="category-btn" data-category="electronics" data-track="gear-category">Electronics</button>
-                    <button class="category-btn" data-category="clothing" data-track="gear-category">Clothing</button>
-                </div>
-                
-                <div class="products-grid" id="products-grid">
-                    <div class="product-card" data-category="backpacks" data-product-id="bp001">
-                        <div class="product-image">
-                            <img src="images/travel-backpack.jpg" alt="Travel Backpack" loading="lazy">
-                            <div class="product-badge">Best Seller</div>
-                        </div>
-                        <div class="product-content">
-                            <h3 class="product-title">Professional Travel Backpack 45L</h3>
-                            <p class="product-description">Durable, lightweight backpack with multiple compartments</p>
-                            <div class="product-price">
-                                <span class="current-price">$149.99</span>
-                                <span class="original-price">$189.99</span>
-                            </div>
-                            <div class="product-rating">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <span class="rating-text">4.8 (234 reviews)</span>
-                            </div>
-                            <button class="btn-primary add-to-cart" data-track="add-to-cart" data-product-id="bp001">
-                                Add to Cart
-                            </button>
-                        </div>
-                    </div>
-                    
-                    <div class="product-card" data-category="electronics" data-product-id="el001">
-                        <div class="product-image">
-                            <img src="images/power-bank.jpg" alt="Portable Power Bank" loading="lazy">
-                        </div>
-                        <div class="product-content">
-                            <h3 class="product-title">Ultra-Fast Portable Power Bank 20000mAh</h3>
-                            <p class="product-description">Keep your devices charged on long journeys</p>
-                            <div class="product-price">
-                                <span class="current-price">$79.99</span>
-                            </div>
-                            <div class="product-rating">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="far fa-star"></i>
-                                <span class="rating-text">4.6 (189 reviews)</span>
-                            </div>
-                            <button class="btn-primary add-to-cart" data-track="add-to-cart" data-product-id="el001">
-                                Add to Cart
-                            </button>
-                        </div>
-                    </div>
-                    
-                    <div class="product-card" data-category="clothing" data-product-id="cl001">
-                        <div class="product-image">
-                            <img src="images/travel-jacket.jpg" alt="Travel Jacket" loading="lazy">
-                        </div>
-                        <div class="product-content">
-                            <h3 class="product-title">All-Weather Travel Jacket</h3>
-                            <p class="product-description">Waterproof, breathable, and packable</p>
-                            <div class="product-price">
-                                <span class="current-price">$199.99</span>
-                            </div>
-                            <div class="product-rating">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <span class="rating-text">4.9 (156 reviews)</span>
-                            </div>
-                            <button class="btn-primary add-to-cart" data-track="add-to-cart" data-product-id="cl001">
-                                Add to Cart
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Blog Section -->
-        <section class="blog" id="blog">
-            <div class="container">
-                <div class="section-header">
-                    <h2 class="section-title">Travel Inspiration</h2>
-                    <p class="section-subtitle">Latest travel guides and tips from our experts</p>
-                </div>
-                
-                <div class="blog-grid">
-                    <article class="blog-card featured" data-article-id="art001">
-                        <div class="blog-image">
-                            <img src="images/blog-italy-guide.jpg" alt="Complete Italy Travel Guide" loading="lazy">
-                            <div class="blog-category">Travel Guide</div>
-                        </div>
-                        <div class="blog-content">
-                            <h3 class="blog-title">The Complete Italy Travel Guide: 15 Must-Visit Cities</h3>
-                            <p class="blog-excerpt">Discover the best of Italy from Rome's ancient history to Florence's Renaissance art and Venice's romantic canals...</p>
-                            <div class="blog-meta">
-                                <span class="author">By Sarah Johnson</span>
-                                <span class="date">Dec 15, 2024</span>
-                                <span class="read-time">8 min read</span>
-                            </div>
-                            <button class="btn-secondary blog-read" data-track="article-view" data-article-id="art001">
-                                Read Article
-                            </button>
-                        </div>
-                    </article>
-                    
-                    <article class="blog-card" data-article-id="art002">
-                        <div class="blog-image">
-                            <img src="images/blog-budget-travel.jpg" alt="Budget Travel Tips" loading="lazy">
-                            <div class="blog-category">Tips</div>
-                        </div>
-                        <div class="blog-content">
-                            <h3 class="blog-title">10 Budget Travel Hacks That Actually Work</h3>
-                            <p class="blog-excerpt">Save money on your next adventure with these proven strategies from experienced travelers...</p>
-                            <div class="blog-meta">
-                                <span class="author">By Mike Chen</span>
-                                <span class="date">Dec 12, 2024</span>
-                                <span class="read-time">5 min read</span>
-                            </div>
-                            <button class="btn-secondary blog-read" data-track="article-view" data-article-id="art002">
-                                Read Article
-                            </button>
-                        </div>
-                    </article>
-                    
-                    <article class="blog-card" data-article-id="art003">
-                        <div class="blog-image">
-                            <img src="images/blog-packing-guide.jpg" alt="Packing Guide" loading="lazy">
-                            <div class="blog-category">Guide</div>
-                        </div>
-                        <div class="blog-content">
-                            <h3 class="blog-title">Ultimate Packing Guide for Digital Nomads</h3>
-                            <p class="blog-excerpt">Everything you need to know about packing light while staying productive on the road...</p>
-                            <div class="blog-meta">
-                                <span class="author">By Emma Wilson</span>
-                                <span class="date">Dec 10, 2024</span>
-                                <span class="read-time">7 min read</span>
-                            </div>
-                            <button class="btn-secondary blog-read" data-track="article-view" data-article-id="art003">
-                                Read Article
-                            </button>
-                        </div>
-                    </article>
-                </div>
-            </div>
-        </section>
-
-        <!-- Newsletter Section -->
-        <section class="newsletter">
-            <div class="container">
-                <div class="newsletter-content">
-                    <h2 class="newsletter-title">Never Miss an Adventure</h2>
-                    <p class="newsletter-subtitle">Get exclusive travel deals, destination guides, and insider tips delivered to your inbox</p>
-                    
-                    <form class="newsletter-form" id="newsletter-form">
-                        <div class="form-group">
-                            <input type="email" placeholder="Enter your email address" required id="newsletter-email">
-                            <button type="submit" class="btn-primary" data-track="newsletter-signup">
-                                Subscribe
-                            </button>
-                        </div>
-                        <p class="newsletter-disclaimer">
-                            By subscribing, you agree to our <a href="#" data-track="privacy-policy">Privacy Policy</a> and consent to receive updates from Lametayel.
-                        </p>
+                        <button type="submit" class="search-btn" data-track="hero-search">Search</button>
                     </form>
                 </div>
+
+                <!-- Popular Destinations -->
+                <div class="popular-destinations">
+                    <span class="popular-label">Popular destinations:</span>
+                    <div class="destination-tags">
+                        <button class="destination-tag" data-destination="italy" data-track="popular-destination">Italy</button>
+                        <button class="destination-tag" data-destination="japan" data-track="popular-destination">Japan</button>
+                        <button class="destination-tag" data-destination="greece" data-track="popular-destination">Greece</button>
+                        <button class="destination-tag" data-destination="thailand" data-track="popular-destination">Thailand</button>
+                        <button class="destination-tag" data-destination="france" data-track="popular-destination">France</button>
+                    </div>
+                </div>
             </div>
-        </section>
-    </main>
+        </div>
+    </section>
+
+    <!-- Dynamic Offers Section -->
+    <section class="offers-section" id="offersSection">
+        <div class="container">
+            <h2 class="section-title">Personalized Travel Offers</h2>
+            <div class="offers-grid" id="offersGrid">
+                <!-- Offers will be dynamically populated -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Articles -->
+    <section class="articles-section" id="articles">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Latest Travel Guides</h2>
+                <a href="#" class="view-all-link" data-track="view-all-articles">View All Articles</a>
+            </div>
+            
+            <div class="articles-grid">
+                <article class="article-card" data-article-id="italy-tuscany-guide">
+                    <div class="article-image">
+                        <img src="https://images.unsplash.com/photo-1549294413-26f195200c16?w=400&h=250&fit=crop" alt="Tuscany Vineyards" loading="lazy">
+                        <div class="article-category">Europe</div>
+                    </div>
+                    <div class="article-content">
+                        <h3 class="article-title">Complete Guide to Tuscany: Wine, Culture & Hidden Gems</h3>
+                        <p class="article-excerpt">Discover the rolling hills, world-class wines, and charming medieval towns of Tuscany with our comprehensive travel guide.</p>
+                        <div class="article-meta">
+                            <span class="article-date">Dec 10, 2024</span>
+                            <span class="read-time">8 min read</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="article-card" data-article-id="japan-cherry-blossom">
+                    <div class="article-image">
+                        <img src="https://images.unsplash.com/photo-1522383225653-ed111181a951?w=400&h=250&fit=crop" alt="Japanese Cherry Blossoms" loading="lazy">
+                        <div class="article-category">Asia</div>
+                    </div>
+                    <div class="article-content">
+                        <h3 class="article-title">Japan's Cherry Blossom Season: Ultimate Viewing Guide 2025</h3>
+                        <p class="article-excerpt">Plan the perfect sakura season trip with our detailed guide to the best viewing spots, timing, and cultural experiences.</p>
+                        <div class="article-meta">
+                            <span class="article-date">Dec 8, 2024</span>
+                            <span class="read-time">12 min read</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="article-card" data-article-id="greece-islands-hopping">
+                    <div class="article-image">
+                        <img src="https://images.unsplash.com/photo-1613395877344-13d4a8e0d49e?w=400&h=250&fit=crop" alt="Greek Islands" loading="lazy">
+                        <div class="article-category">Europe</div>
+                    </div>
+                    <div class="article-content">
+                        <h3 class="article-title">Greek Islands Hopping: Santorini, Mykonos & Beyond</h3>
+                        <p class="article-excerpt">Navigate the stunning Greek archipelago with insider tips on island-hopping, local cuisine, and hidden beaches.</p>
+                        <div class="article-meta">
+                            <span class="article-date">Dec 5, 2024</span>
+                            <span class="read-time">15 min read</span>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Destinations Section -->
+    <section class="destinations-section" id="destinations">
+        <div class="container">
+            <h2 class="section-title">Explore Top Destinations</h2>
+            
+            <div class="destinations-grid">
+                <div class="destination-card large" data-destination="italy">
+                    <div class="destination-image">
+                        <img src="https://images.unsplash.com/photo-1523906921802-b5d2d899e93b?w=600&h=400&fit=crop" alt="Italy" loading="lazy">
+                    </div>
+                    <div class="destination-content">
+                        <h3 class="destination-name">Italy</h3>
+                        <p class="destination-description">From Roman history to Tuscan wines</p>
+                        <span class="destination-articles">156 articles</span>
+                    </div>
+                </div>
+
+                <div class="destination-card" data-destination="japan">
+                    <div class="destination-image">
+                        <img src="https://images.unsplash.com/photo-1542640244-7e672d6cef4e?w=300&h=200&fit=crop" alt="Japan" loading="lazy">
+                    </div>
+                    <div class="destination-content">
+                        <h3 class="destination-name">Japan</h3>
+                        <p class="destination-description">Ancient traditions meet modern marvels</p>
+                        <span class="destination-articles">89 articles</span>
+                    </div>
+                </div>
+
+                <div class="destination-card" data-destination="greece">
+                    <div class="destination-image">
+                        <img src="https://images.unsplash.com/photo-1533105079780-92b9be482077?w=300&h=200&fit=crop" alt="Greece" loading="lazy">
+                    </div>
+                    <div class="destination-content">
+                        <h3 class="destination-name">Greece</h3>
+                        <p class="destination-description">Islands, mythology, and Mediterranean bliss</p>
+                        <span class="destination-articles">73 articles</span>
+                    </div>
+                </div>
+
+                <div class="destination-card" data-destination="thailand">
+                    <div class="destination-image">
+                        <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=300&h=200&fit=crop" alt="Thailand" loading="lazy">
+                    </div>
+                    <div class="destination-content">
+                        <h3 class="destination-name">Thailand</h3>
+                        <p class="destination-description">Tropical paradise and cultural wonders</p>
+                        <span class="destination-articles">92 articles</span>
+                    </div>
+                </div>
+
+                <div class="destination-card" data-destination="france">
+                    <div class="destination-image">
+                        <img src="https://images.unsplash.com/photo-1502602898536-47ad22581b52?w=300&h=200&fit=crop" alt="France" loading="lazy">
+                    </div>
+                    <div class="destination-content">
+                        <h3 class="destination-name">France</h3>
+                        <p class="destination-description">Romance, cuisine, and timeless elegance</p>
+                        <span class="destination-articles">112 articles</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Travel Services Section -->
+    <section class="services-section">
+        <div class="container">
+            <h2 class="section-title">Complete Travel Solutions</h2>
+            
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-plane"></i>
+                    </div>
+                    <h3 class="service-title">Flight Booking</h3>
+                    <p class="service-description">Find the best flight deals with our partner airlines and booking platforms.</p>
+                    <button class="service-btn" data-service="flights" data-track="service-flights">Book Flights</button>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-bed"></i>
+                    </div>
+                    <h3 class="service-title">Accommodation</h3>
+                    <p class="service-description">Discover hotels, hostels, and unique stays that match your travel style.</p>
+                    <button class="service-btn" data-service="hotels" data-track="service-hotels">Find Hotels</button>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 class="service-title">Travel Insurance</h3>
+                    <p class="service-description">Protect your trip with comprehensive travel insurance coverage.</p>
+                    <button class="service-btn" data-service="insurance" data-track="service-insurance">Get Insured</button>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-shopping-bag"></i>
+                    </div>
+                    <h3 class="service-title">Travel Gear</h3>
+                    <p class="service-description">Essential travel gear and accessories for every type of adventure.</p>
+                    <button class="service-btn" data-service="gear" data-track="service-gear">Shop Gear</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Signup -->
+    <section class="newsletter-section">
+        <div class="container">
+            <div class="newsletter-content">
+                <h2 class="newsletter-title">Never Miss a Travel Opportunity</h2>
+                <p class="newsletter-description">Get personalized travel tips, exclusive deals, and destination insights delivered to your inbox.</p>
+                
+                <form class="newsletter-form" id="newsletterForm">
+                    <div class="form-group">
+                        <input type="email" id="newsletterEmail" placeholder="Enter your email address" class="newsletter-input" required>
+                        <button type="submit" class="newsletter-btn" data-track="newsletter-signup">Subscribe</button>
+                    </div>
+                    <p class="newsletter-privacy">We respect your privacy. Unsubscribe at any time.</p>
+                </form>
+            </div>
+        </div>
+    </section>
 
     <!-- Footer -->
     <footer class="footer">
@@ -550,185 +287,90 @@
             <div class="footer-content">
                 <div class="footer-section">
                     <div class="footer-brand">
-                        <img src="https://media.licdn.com/dms/image/v2/C560BAQEErPB4xYG7_Q/company-logo_200_200/company-logo_200_200/0/1648478465670/lametayel_logo?e=2147483647&v=beta&t=DAOjQfU5UHkJro9oMKXRQd5RAcw_PmmjkPlAe9DqGAM" alt="Lametayel" class="footer-logo">
+                        <span class="logo-text">למטייל</span>
                         <p class="footer-description">Your trusted companion for unforgettable travel experiences around the world.</p>
-                        <div class="social-links">
-                            <a href="#" class="social-link" data-track="social-facebook"><i class="fab fa-facebook"></i></a>
-                            <a href="#" class="social-link" data-track="social-instagram"><i class="fab fa-instagram"></i></a>
-                            <a href="#" class="social-link" data-track="social-twitter"><i class="fab fa-twitter"></i></a>
-                            <a href="#" class="social-link" data-track="social-youtube"><i class="fab fa-youtube"></i></a>
-                        </div>
                     </div>
                 </div>
-                
+
                 <div class="footer-section">
-                    <h3 class="footer-heading">Destinations</h3>
+                    <h3 class="footer-title">Destinations</h3>
                     <ul class="footer-links">
-                        <li><a href="#" data-track="footer-europe">Europe</a></li>
-                        <li><a href="#" data-track="footer-asia">Asia</a></li>
-                        <li><a href="#" data-track="footer-americas">Americas</a></li>
-                        <li><a href="#" data-track="footer-africa">Africa</a></li>
-                        <li><a href="#" data-track="footer-oceania">Oceania</a></li>
+                        <li><a href="#" data-track="footer-link">Europe</a></li>
+                        <li><a href="#" data-track="footer-link">Asia</a></li>
+                        <li><a href="#" data-track="footer-link">Americas</a></li>
+                        <li><a href="#" data-track="footer-link">Africa</a></li>
                     </ul>
                 </div>
-                
+
                 <div class="footer-section">
-                    <h3 class="footer-heading">Travel Services</h3>
+                    <h3 class="footer-title">Travel Services</h3>
                     <ul class="footer-links">
-                        <li><a href="#" data-track="footer-hotels">Hotels</a></li>
-                        <li><a href="#" data-track="footer-flights">Flights</a></li>
-                        <li><a href="#" data-track="footer-car-rental">Car Rental</a></li>
-                        <li><a href="#" data-track="footer-insurance">Travel Insurance</a></li>
-                        <li><a href="#" data-track="footer-tours">Guided Tours</a></li>
+                        <li><a href="#" data-track="footer-link">Flights</a></li>
+                        <li><a href="#" data-track="footer-link">Hotels</a></li>
+                        <li><a href="#" data-track="footer-link">Travel Insurance</a></li>
+                        <li><a href="#" data-track="footer-link">Travel Gear</a></li>
                     </ul>
                 </div>
-                
+
                 <div class="footer-section">
-                    <h3 class="footer-heading">Support</h3>
+                    <h3 class="footer-title">Company</h3>
                     <ul class="footer-links">
-                        <li><a href="#" data-track="footer-help">Help Center</a></li>
-                        <li><a href="#" data-track="footer-contact">Contact Us</a></li>
-                        <li><a href="#" data-track="footer-cancellation">Cancellation Policy</a></li>
-                        <li><a href="#" data-track="footer-terms">Terms of Service</a></li>
-                        <li><a href="#" data-track="footer-privacy">Privacy Policy</a></li>
+                        <li><a href="#" data-track="footer-link">About Us</a></li>
+                        <li><a href="#" data-track="footer-link">Contact</a></li>
+                        <li><a href="#" data-track="footer-link">Privacy Policy</a></li>
+                        <li><a href="#" data-track="footer-link">Terms of Service</a></li>
                     </ul>
                 </div>
             </div>
-            
+
             <div class="footer-bottom">
-                <div class="footer-copyright">
-                    <p>&copy; 2024 Lametayel. All rights reserved.</p>
-                </div>
-                <div class="footer-legal">
-                    <a href="#" data-track="footer-cookies">Cookie Settings</a>
-                    <a href="#" data-track="footer-accessibility">Accessibility</a>
+                <p class="footer-copyright">&copy; 2024 Lametayel. All rights reserved.</p>
+                <div class="footer-social">
+                    <a href="#" class="social-link" data-track="social-facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-link" data-track="social-instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-link" data-track="social-twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-link" data-track="social-youtube"><i class="fab fa-youtube"></i></a>
                 </div>
             </div>
         </div>
     </footer>
 
-    <!-- Modals and Overlays -->
-    
     <!-- Login Modal -->
-    <div class="modal" id="login-modal">
+    <div class="modal" id="loginModal">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title">Welcome Back</h3>
-                <button class="modal-close" data-track="modal-close">&times;</button>
+                <h2 class="modal-title">Welcome Back</h2>
+                <button class="modal-close" id="modalClose">&times;</button>
             </div>
             <div class="modal-body">
-                <form class="auth-form" id="login-form">
+                <form class="login-form" id="loginForm">
                     <div class="form-group">
-                        <label for="login-email">Email</label>
-                        <input type="email" id="login-email" required>
+                        <label for="firstName">First Name</label>
+                        <input type="text" id="firstName" name="firstName" required>
                     </div>
                     <div class="form-group">
-                        <label for="login-password">Password</label>
-                        <input type="password" id="login-password" required>
+                        <label for="lastName">Last Name</label>
+                        <input type="text" id="lastName" name="lastName" required>
                     </div>
-                    <button type="submit" class="btn-primary full-width" data-track="login-submit">
-                        Sign In
-                    </button>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <button type="submit" class="btn-primary full-width" data-track="login-submit">Create Account</button>
                 </form>
-                <div class="auth-divider">
+                
+                <div class="login-divider">
                     <span>or</span>
                 </div>
-                <button class="btn-social google" data-track="social-login" data-provider="google">
-                    <i class="fab fa-google"></i>
-                    Continue with Google
-                </button>
-                <button class="btn-social facebook" data-track="social-login" data-provider="facebook">
-                    <i class="fab fa-facebook"></i>
-                    Continue with Facebook
-                </button>
-                <p class="auth-switch">
-                    Don't have an account? <a href="#" id="switch-to-signup" data-track="switch-to-signup">Sign up</a>
-                </p>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Signup Modal -->
-    <div class="modal" id="signup-modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title">Join Lametayel</h3>
-                <button class="modal-close" data-track="modal-close">&times;</button>
-            </div>
-            <div class="modal-body">
-                <form class="auth-form" id="signup-form">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="signup-firstname">First Name</label>
-                            <input type="text" id="signup-firstname" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="signup-lastname">Last Name</label>
-                            <input type="text" id="signup-lastname" required>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="signup-email">Email</label>
-                        <input type="email" id="signup-email" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="signup-password">Password</label>
-                        <input type="password" id="signup-password" required>
-                    </div>
-                    <div class="form-group checkbox">
-                        <input type="checkbox" id="marketing-consent">
-                        <label for="marketing-consent">I want to receive travel deals and destination guides</label>
-                    </div>
-                    <button type="submit" class="btn-primary full-width" data-track="signup-submit">
-                        Create Account
-                    </button>
-                </form>
-                <div class="auth-divider">
-                    <span>or</span>
-                </div>
-                <button class="btn-social google" data-track="social-signup" data-provider="google">
-                    <i class="fab fa-google"></i>
-                    Sign up with Google
-                </button>
-                <button class="btn-social facebook" data-track="social-signup" data-provider="facebook">
-                    <i class="fab fa-facebook"></i>
-                    Sign up with Facebook
-                </button>
-                <p class="auth-switch">
-                    Already have an account? <a href="#" id="switch-to-login" data-track="switch-to-login">Sign in</a>
-                </p>
+                
+                <button class="btn-secondary full-width" id="existingUserBtn" data-track="existing-user">Sign In as Existing User</button>
             </div>
         </div>
     </div>
 
-    <!-- Cart Modal -->
-    <div class="modal" id="cart-modal">
-        <div class="modal-content cart-modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title">Shopping Cart</h3>
-                <button class="modal-close" data-track="cart-close">&times;</button>
-            </div>
-            <div class="modal-body">
-                <div class="cart-items" id="cart-items">
-                    <!-- Cart items will be dynamically populated -->
-                </div>
-                <div class="cart-summary">
-                    <div class="cart-total">
-                        <span>Total: $<span id="cart-total">0.00</span></span>
-                    </div>
-                    <button class="btn-primary full-width" id="checkout-btn" data-track="checkout-click">
-                        Proceed to Checkout
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- JavaScript Files -->
-    <script src="js/main.js"></script>
-    <script src="js/tracking.js"></script>
-    <script src="js/auth.js"></script>
-    <script src="js/cart.js"></script>
+    <!-- Scripts -->
+    <script src="js/segment-utils.js"></script>
     <script src="js/offers.js"></script>
+    <script src="js/main.js"></script>
 </body>
 </html>

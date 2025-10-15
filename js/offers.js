@@ -1,849 +1,608 @@
-/* ===================================
-   DYNAMIC OFFERS SYSTEM
-   Personalized travel offers and affiliate integrations
-   =================================== */
+/**
+ * Dynamic Offers System for Lametayel
+ * Personalized travel offers based on user behavior and interests
+ */
 
-class DynamicOffersManager {
+class DynamicOffers {
     constructor() {
         this.offers = [];
-        this.personalizedOffers = [];
-        this.affiliatePartners = this.initializeAffiliatePartners();
-        this.offerTemplates = this.initializeOfferTemplates();
+        this.userProfile = this.getUserProfile();
+        this.offerConfig = {
+            maxOffers: 6,
+            refreshInterval: 30000, // 30 seconds for demo purposes
+            personalizedWeight: 0.7,
+            randomWeight: 0.3
+        };
         this.init();
     }
-    
+
+    /**
+     * Initialize the offers system
+     */
     init() {
-        this.setupEventListeners();
-        this.loadInitialOffers();
-        this.startPersonalizationEngine();
+        this.loadOfferTemplates();
+        this.renderOffers();
+        
+        // Refresh offers periodically for demo
+        setInterval(() => {
+            this.refreshOffers();
+        }, this.offerConfig.refreshInterval);
     }
-    
-    initializeAffiliatePartners() {
-        return {
-            'booking.com': {
-                name: 'Booking.com',
-                type: 'accommodation',
-                commission: 0.04, // 4%
-                apiEndpoint: 'https://booking.com/affiliate/',
-                trackingParams: {
-                    aid: '1234567', // Affiliate ID
-                    label: 'lametayel-demo'
+
+    /**
+     * Load offer templates (in real implementation, this would come from an API)
+     */
+    loadOfferTemplates() {
+        this.offerTemplates = {
+            hotels: [
+                {
+                    id: 'hotel_tuscany_1',
+                    type: 'hotel',
+                    title: 'Luxury Villa in Tuscany',
+                    description: 'Experience authentic Italian charm in this stunning countryside villa with vineyard views.',
+                    destination: 'italy',
+                    category: 'accommodation',
+                    partner: 'booking.com',
+                    price: 450,
+                    originalPrice: 680,
+                    currency: 'USD',
+                    image: 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=400&h=250&fit=crop',
+                    badge: 'Limited Time',
+                    cta: 'Book Now',
+                    interests: ['italy', 'luxury', 'wine'],
+                    seasons: ['spring', 'summer', 'fall']
+                },
+                {
+                    id: 'hotel_santorini_1',
+                    type: 'hotel',
+                    title: 'Cliffside Resort in Santorini',
+                    description: 'Wake up to breathtaking caldera views in this exclusive Greek island paradise.',
+                    destination: 'greece',
+                    category: 'accommodation',
+                    partner: 'expedia',
+                    price: 380,
+                    originalPrice: 520,
+                    currency: 'USD',
+                    image: 'https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=400&h=250&fit=crop',
+                    badge: 'Best Seller',
+                    cta: 'View Deals',
+                    interests: ['greece', 'luxury', 'romantic'],
+                    seasons: ['spring', 'summer', 'fall']
+                },
+                {
+                    id: 'hotel_kyoto_1',
+                    type: 'hotel',
+                    title: 'Traditional Ryokan in Kyoto',
+                    description: 'Immerse yourself in Japanese culture with tatami rooms, kaiseki dining, and zen gardens.',
+                    destination: 'japan',
+                    category: 'accommodation',
+                    partner: 'booking.com',
+                    price: 280,
+                    originalPrice: 350,
+                    currency: 'USD',
+                    image: 'https://images.unsplash.com/photo-1545569341-9eb8b30979d9?w=400&h=250&fit=crop',
+                    badge: 'Cultural Experience',
+                    cta: 'Explore',
+                    interests: ['japan', 'culture', 'authentic'],
+                    seasons: ['spring', 'fall']
                 }
-            },
-            'expedia': {
-                name: 'Expedia',
-                type: 'flights',
-                commission: 0.025, // 2.5%
-                apiEndpoint: 'https://expedia.com/affiliate/',
-                trackingParams: {
-                    eapid: '7654321',
-                    siteid: 'lametayel'
+            ],
+            insurance: [
+                {
+                    id: 'insurance_comprehensive_1',
+                    type: 'insurance',
+                    title: 'Comprehensive Travel Protection',
+                    description: 'Complete coverage for medical emergencies, trip cancellation, and baggage protection.',
+                    destination: 'global',
+                    category: 'insurance',
+                    partner: 'world_nomads',
+                    price: 89,
+                    originalPrice: 120,
+                    currency: 'USD',
+                    image: 'https://images.unsplash.com/photo-1559526324-4b87b5e36e44?w=400&h=250&fit=crop',
+                    badge: 'Peace of Mind',
+                    cta: 'Get Quote',
+                    interests: ['safety', 'international', 'comprehensive'],
+                    seasons: ['all']
+                },
+                {
+                    id: 'insurance_adventure_1',
+                    type: 'insurance',
+                    title: 'Adventure Sports Coverage',
+                    description: 'Specialized protection for skiing, diving, hiking, and extreme sports activities.',
+                    destination: 'global',
+                    category: 'insurance',
+                    partner: 'adventure_insurance',
+                    price: 125,
+                    originalPrice: 180,
+                    currency: 'USD',
+                    image: 'https://images.unsplash.com/photo-1551632811-561732d1e306?w=400&h=250&fit=crop',
+                    badge: 'Adventure Ready',
+                    cta: 'Protect Your Trip',
+                    interests: ['adventure', 'sports', 'skiing', 'diving'],
+                    seasons: ['winter', 'summer']
                 }
-            },
-            'viator': {
-                name: 'Viator',
-                type: 'experiences',
-                commission: 0.06, // 6%
-                apiEndpoint: 'https://viator.com/affiliate/',
-                trackingParams: {
-                    pid: 'lametayel-affiliate'
+            ],
+            gear: [
+                {
+                    id: 'gear_backpack_1',
+                    type: 'gear',
+                    title: 'Professional Travel Backpack 45L',
+                    description: 'Durable, lightweight backpack perfect for extended travels with multiple compartments.',
+                    destination: 'global',
+                    category: 'travel_gear',
+                    partner: 'lametayel_store',
+                    price: 149,
+                    originalPrice: 199,
+                    currency: 'USD',
+                    image: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&h=250&fit=crop',
+                    badge: 'Staff Pick',
+                    cta: 'Shop Now',
+                    interests: ['backpacking', 'adventure', 'practical'],
+                    seasons: ['all']
+                },
+                {
+                    id: 'gear_camera_1',
+                    type: 'gear',
+                    title: 'Waterproof Action Camera Kit',
+                    description: 'Capture your adventures with 4K recording, underwater housing, and stabilization.',
+                    destination: 'global',
+                    category: 'travel_gear',
+                    partner: 'lametayel_store',
+                    price: 299,
+                    originalPrice: 399,
+                    currency: 'USD',
+                    image: 'https://images.unsplash.com/photo-1502920917128-1aa500764cbd?w=400&h=250&fit=crop',
+                    badge: '25% Off',
+                    cta: 'Get Yours',
+                    interests: ['photography', 'adventure', 'underwater'],
+                    seasons: ['summer', 'winter']
                 }
-            },
-            'world_nomads': {
-                name: 'World Nomads',
-                type: 'insurance',
-                commission: 0.12, // 12%
-                apiEndpoint: 'https://worldnomads.com/affiliate/',
-                trackingParams: {
-                    affiliate: 'lametayel',
-                    subid: 'demo'
+            ],
+            tours: [
+                {
+                    id: 'tour_italy_wine_1',
+                    type: 'tour',
+                    title: 'Tuscany Wine & Cooking Tour',
+                    description: 'Small group culinary adventure through vineyards, cooking classes, and local markets.',
+                    destination: 'italy',
+                    category: 'tours',
+                    partner: 'local_tours_italy',
+                    price: 325,
+                    originalPrice: 420,
+                    currency: 'USD',
+                    image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=250&fit=crop',
+                    badge: 'Small Group',
+                    cta: 'Join Tour',
+                    interests: ['italy', 'wine', 'cooking', 'culture'],
+                    seasons: ['spring', 'summer', 'fall']
+                },
+                {
+                    id: 'tour_japan_cultural_1',
+                    type: 'tour',
+                    title: 'Traditional Japan Cultural Experience',
+                    description: 'Tea ceremonies, temple visits, and authentic cultural immersion in historic Kyoto.',
+                    destination: 'japan',
+                    category: 'tours',
+                    partner: 'japan_cultural_tours',
+                    price: 280,
+                    originalPrice: 350,
+                    currency: 'USD',
+                    image: 'https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=400&h=250&fit=crop',
+                    badge: 'Authentic',
+                    cta: 'Experience',
+                    interests: ['japan', 'culture', 'traditional', 'temples'],
+                    seasons: ['spring', 'fall']
                 }
-            },
-            'rentalcars': {
-                name: 'RentalCars.com',
-                type: 'car_rental',
-                commission: 0.035, // 3.5%
-                apiEndpoint: 'https://rentalcars.com/affiliate/',
-                trackingParams: {
-                    affiliateCode: 'lametayel-rc'
+            ],
+            flights: [
+                {
+                    id: 'flight_europe_1',
+                    type: 'flight',
+                    title: 'Round-trip to Europe from $399',
+                    description: 'Limited time deals on flights to major European destinations. Book by month end.',
+                    destination: 'europe',
+                    category: 'flights',
+                    partner: 'skyscanner',
+                    price: 399,
+                    originalPrice: 650,
+                    currency: 'USD',
+                    image: 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=400&h=250&fit=crop',
+                    badge: 'Flash Sale',
+                    cta: 'Search Flights',
+                    interests: ['europe', 'budget', 'international'],
+                    seasons: ['all']
                 }
-            }
+            ]
         };
     }
-    
-    initializeOfferTemplates() {
-        return {
-            hotel: {
-                title: 'Exclusive Hotel Deals in {destination}',
-                description: 'Save up to {discount}% on top-rated accommodations',
-                cta: 'Find Hotels',
-                icon: 'fas fa-bed',
-                urgency: 'Limited time offer',
-                benefits: ['Free cancellation', 'Best price guarantee', '24/7 support']
-            },
-            flight: {
-                title: 'Cheap Flights to {destination}',
-                description: 'Compare prices and save up to {discount}% on airfare',
-                cta: 'Search Flights',
-                icon: 'fas fa-plane',
-                urgency: 'Prices may increase soon',
-                benefits: ['Flexible dates', 'Multiple airlines', 'Secure booking']
-            },
-            experience: {
-                title: '{destination} Tours & Activities',
-                description: 'Book unique experiences with {discount}% off',
-                cta: 'Book Experience',
-                icon: 'fas fa-camera',
-                urgency: 'Book now to secure your spot',
-                benefits: ['Expert guides', 'Skip-the-line access', 'Small groups']
-            },
-            insurance: {
-                title: 'Travel Insurance for Your Trip',
-                description: 'Protect your adventure with comprehensive coverage',
-                cta: 'Get Quote',
-                icon: 'fas fa-shield-alt',
-                urgency: 'Recommended for all travelers',
-                benefits: ['Medical coverage', 'Trip cancellation', '24/7 assistance']
-            },
-            car_rental: {
-                title: 'Car Rental in {destination}',
-                description: 'Explore at your own pace with {discount}% off rentals',
-                cta: 'Rent Now',
-                icon: 'fas fa-car',
-                urgency: 'Book early for best rates',
-                benefits: ['Free cancellation', 'Fuel policy options', 'GPS available']
-            }
+
+    /**
+     * Get user profile with interests and behavior data
+     */
+    getUserProfile() {
+        // In real implementation, this would come from Segment user traits
+        const defaultProfile = {
+            interests: ['italy', 'culture', 'photography'],
+            previousDestinations: ['france', 'spain'],
+            travelStyle: 'cultural',
+            budgetRange: 'mid',
+            seasonPreference: this.getCurrentSeason(),
+            recentSearches: [],
+            clickedOffers: [],
+            bookingHistory: []
         };
+
+        // Try to get stored profile or use default
+        const storedProfile = localStorage.getItem('lametayel_user_profile');
+        return storedProfile ? JSON.parse(storedProfile) : defaultProfile;
     }
-    
-    setupEventListeners() {
-        // Listen for destination interest events
-        document.addEventListener('destinationViewed', (e) => {
-            this.handleDestinationInterest(e.detail);
-        });
+
+    /**
+     * Update user profile based on interactions
+     */
+    updateUserProfile(updates) {
+        this.userProfile = { ...this.userProfile, ...updates };
+        localStorage.setItem('lametayel_user_profile', JSON.stringify(this.userProfile));
+    }
+
+    /**
+     * Get current season for seasonal offers
+     */
+    getCurrentSeason() {
+        const month = new Date().getMonth() + 1;
+        if (month >= 3 && month <= 5) return 'spring';
+        if (month >= 6 && month <= 8) return 'summer';
+        if (month >= 9 && month <= 11) return 'fall';
+        return 'winter';
+    }
+
+    /**
+     * Calculate offer relevance score based on user profile
+     */
+    calculateRelevanceScore(offer) {
+        let score = 0;
+        const maxScore = 100;
+
+        // Interest matching (40% of score)
+        const interestMatches = offer.interests.filter(interest => 
+            this.userProfile.interests.includes(interest)
+        ).length;
+        score += (interestMatches / offer.interests.length) * 40;
+
+        // Destination interest (20% of score)
+        if (this.userProfile.interests.includes(offer.destination)) {
+            score += 20;
+        }
+
+        // Season relevance (15% of score)
+        if (offer.seasons.includes('all') || offer.seasons.includes(this.userProfile.seasonPreference)) {
+            score += 15;
+        }
+
+        // Recent search relevance (15% of score)
+        const searchMatches = this.userProfile.recentSearches.filter(search =>
+            offer.title.toLowerCase().includes(search.toLowerCase()) ||
+            offer.destination.toLowerCase().includes(search.toLowerCase())
+        ).length;
+        if (searchMatches > 0) score += 15;
+
+        // Avoid recently clicked offers (10% penalty)
+        if (this.userProfile.clickedOffers.includes(offer.id)) {
+            score -= 10;
+        }
+
+        // Budget matching (10% of score)
+        if (this.userProfile.budgetRange === 'budget' && offer.price < 200) score += 10;
+        if (this.userProfile.budgetRange === 'mid' && offer.price >= 200 && offer.price <= 500) score += 10;
+        if (this.userProfile.budgetRange === 'luxury' && offer.price > 500) score += 10;
+
+        return Math.max(0, Math.min(maxScore, score));
+    }
+
+    /**
+     * Get personalized offers
+     */
+    getPersonalizedOffers() {
+        const allOffers = [
+            ...this.offerTemplates.hotels,
+            ...this.offerTemplates.insurance,
+            ...this.offerTemplates.gear,
+            ...this.offerTemplates.tours,
+            ...this.offerTemplates.flights
+        ];
+
+        // Calculate relevance scores
+        const scoredOffers = allOffers.map(offer => ({
+            ...offer,
+            relevanceScore: this.calculateRelevanceScore(offer),
+            discountPercent: Math.round(((offer.originalPrice - offer.price) / offer.originalPrice) * 100)
+        }));
+
+        // Sort by relevance score (descending)
+        scoredOffers.sort((a, b) => b.relevanceScore - a.relevanceScore);
+
+        // Mix personalized with some random offers for diversity
+        const personalizedCount = Math.ceil(this.offerConfig.maxOffers * this.offerConfig.personalizedWeight);
+        const randomCount = this.offerConfig.maxOffers - personalizedCount;
+
+        const personalized = scoredOffers.slice(0, personalizedCount);
+        const random = scoredOffers
+            .slice(personalizedCount)
+            .sort(() => Math.random() - 0.5)
+            .slice(0, randomCount);
+
+        return [...personalized, ...random].slice(0, this.offerConfig.maxOffers);
+    }
+
+    /**
+     * Render offers in the DOM
+     */
+    renderOffers() {
+        const offersGrid = document.getElementById('offersGrid');
+        if (!offersGrid) return;
+
+        const personalizedOffers = this.getPersonalizedOffers();
         
-        // Listen for search events
-        document.addEventListener('searchExecuted', (e) => {
-            this.handleSearchEvent(e.detail);
-        });
+        // Note: Offer Shown events are now only fired when user clicks on offers
+        // This improves data quality by tracking actual engagement rather than impressions
+
+        offersGrid.innerHTML = personalizedOffers.map(offer => `
+            <div class="offer-card" data-offer-id="${offer.id}" data-offer-type="${offer.type}">
+                <img src="${offer.image}" alt="${offer.title}" class="offer-image" loading="lazy">
+                <div class="offer-content">
+                    <div class="offer-badge">${offer.badge}</div>
+                    <h3 class="offer-title">${offer.title}</h3>
+                    <p class="offer-description">${offer.description}</p>
+                    <div class="offer-price">
+                        <span class="offer-price-current">$${offer.price}</span>
+                        <span class="offer-price-original">$${offer.originalPrice}</span>
+                    </div>
+                    <button class="offer-btn" data-offer-id="${offer.id}" data-track="offer-click">
+                        ${offer.cta}
+                    </button>
+                </div>
+            </div>
+        `).join('');
+
+        // Add click event listeners
+        this.attachOfferListeners();
         
-        // Handle offer clicks
-        document.addEventListener('click', (e) => {
-            if (e.target.closest('.offer-card')) {
-                this.handleOfferClick(e.target.closest('.offer-card'));
-            }
+        console.log('🎯 Rendered personalized offers:', personalizedOffers.length, '(Tracking only on clicks)');
+    }
+
+    /**
+     * Attach click event listeners to offers
+     */
+    attachOfferListeners() {
+        document.querySelectorAll('[data-offer-id]').forEach(button => {
+            button.addEventListener('click', (e) => {
+                const offerId = e.target.dataset.offerId || e.currentTarget.dataset.offerId;
+                const offerCard = e.target.closest('.offer-card');
+                const offerType = offerCard?.dataset.offerType;
+                
+                this.handleOfferClick(offerId, offerType, e.target);
+            });
         });
     }
-    
-    loadInitialOffers() {
-        // Load some generic offers on page load
-        const generalOffers = [
-            {
-                id: 'welcome_hotel',
-                type: 'hotel',
-                partner: 'booking.com',
-                title: 'Welcome Offer: 25% Off Hotels',
-                description: 'Save on your first booking with our exclusive welcome offer',
-                discount: 25,
-                destination: 'worldwide',
-                personalizedReason: 'new_visitor',
-                validUntil: this.getOfferExpiry(7), // 7 days
-                priority: 1
-            },
-            {
-                id: 'flash_flights',
-                type: 'flight',
-                partner: 'expedia',
-                title: 'Flash Sale: Cheap Flights',
-                description: 'Limited time offer on international flights',
-                discount: 20,
-                destination: 'international',
-                personalizedReason: 'flash_sale',
-                validUntil: this.getOfferExpiry(2), // 2 days
-                priority: 2
-            }
+
+    /**
+     * Handle offer clicks
+     */
+    handleOfferClick(offerId, offerType, element) {
+        // Find the offer data
+        const allOffers = [
+            ...this.offerTemplates.hotels,
+            ...this.offerTemplates.insurance,
+            ...this.offerTemplates.gear,
+            ...this.offerTemplates.tours,
+            ...this.offerTemplates.flights
         ];
         
-        this.offers = generalOffers;
-        this.renderOffers();
-    }
-    
-    startPersonalizationEngine() {
-        // Check for personalization opportunities every 30 seconds
-        setInterval(() => {
-            this.generatePersonalizedOffers();
-        }, 30000);
-        
-        // Initial personalization after 5 seconds
-        setTimeout(() => {
-            this.generatePersonalizedOffers();
-        }, 5000);
-    }
-    
-    generatePersonalizedOffers() {
-        const userTraits = window.userTraits?.getTraits() || {};
-        const currentOffers = [];
-        
-        // Generate destination-specific offers
-        if (userTraits.destinations_of_interest?.length > 0) {
-            userTraits.destinations_of_interest.forEach(destination => {
-                currentOffers.push(...this.createDestinationOffers(destination, userTraits));
-            });
-        }
-        
-        // Generate behavior-based offers
-        const behaviorOffers = this.createBehaviorBasedOffers(userTraits);
-        currentOffers.push(...behaviorOffers);
-        
-        // Generate time-sensitive offers
-        const timeSensitiveOffers = this.createTimeSensitiveOffers();
-        currentOffers.push(...timeSensitiveOffers);
-        
-        // Merge with existing offers and remove duplicates
-        this.personalizedOffers = this.deduplicateOffers([
-            ...this.offers,
-            ...currentOffers
-        ]);
-        
-        // Sort by priority and recency
-        this.personalizedOffers.sort((a, b) => {
-            if (a.priority !== b.priority) {
-                return a.priority - b.priority;
-            }
-            return new Date(b.createdAt || 0) - new Date(a.createdAt || 0);
-        });
-        
-        // Limit to top 6 offers
-        this.personalizedOffers = this.personalizedOffers.slice(0, 6);
-        
-        this.renderOffers();
-    }
-    
-    createDestinationOffers(destination, userTraits) {
-        const offers = [];
-        const destinationCapitalized = destination.charAt(0).toUpperCase() + destination.slice(1);
-        
-        // Hotel offers
-        offers.push({
-            id: `hotel_${destination}_${Date.now()}`,
-            type: 'hotel',
-            partner: 'booking.com',
-            title: `Best Hotels in ${destinationCapitalized}`,
-            description: `Exclusive deals on ${destinationCapitalized} accommodations`,
-            discount: this.getRandomDiscount(15, 35),
-            destination: destination,
-            personalizedReason: 'destination_interest',
-            validUntil: this.getOfferExpiry(5),
-            priority: 1,
-            createdAt: new Date().toISOString()
-        });
-        
-        // Flight offers
-        offers.push({
-            id: `flight_${destination}_${Date.now()}`,
-            type: 'flight',
-            partner: 'expedia',
-            title: `Flights to ${destinationCapitalized}`,
-            description: `Save on airfare to ${destinationCapitalized}`,
-            discount: this.getRandomDiscount(10, 25),
-            destination: destination,
-            personalizedReason: 'destination_interest',
-            validUntil: this.getOfferExpiry(3),
-            priority: 2,
-            createdAt: new Date().toISOString()
-        });
-        
-        // Experience offers for popular destinations
-        if (['italy', 'japan', 'iceland', 'bali'].includes(destination.toLowerCase())) {
-            offers.push({
-                id: `experience_${destination}_${Date.now()}`,
-                type: 'experience',
-                partner: 'viator',
-                title: `${destinationCapitalized} Tours & Activities`,
-                description: `Discover the best of ${destinationCapitalized}`,
-                discount: this.getRandomDiscount(20, 40),
-                destination: destination,
-                personalizedReason: 'popular_destination',
-                validUntil: this.getOfferExpiry(7),
-                priority: 2,
-                createdAt: new Date().toISOString()
-            });
-        }
-        
-        return offers;
-    }
-    
-    createBehaviorBasedOffers(userTraits) {
-        const offers = [];
-        
-        // Travel insurance for frequent travelers
-        if (userTraits.destinations_of_interest?.length >= 3) {
-            offers.push({
-                id: `insurance_frequent_${Date.now()}`,
-                type: 'insurance',
-                partner: 'world_nomads',
-                title: 'Annual Travel Insurance',
-                description: 'Perfect for frequent travelers like you',
-                discount: 15,
-                destination: 'worldwide',
-                personalizedReason: 'frequent_traveler',
-                validUntil: this.getOfferExpiry(14),
-                priority: 3,
-                createdAt: new Date().toISOString()
-            });
-        }
-        
-        // Car rental for adventure travelers
-        if (userTraits.travel_types?.includes('adventure') || userTraits.travel_types?.includes('road_trip')) {
-            offers.push({
-                id: `car_rental_adventure_${Date.now()}`,
-                type: 'car_rental',
-                partner: 'rentalcars',
-                title: 'Adventure Car Rentals',
-                description: 'Explore off the beaten path with our vehicles',
-                discount: this.getRandomDiscount(20, 30),
-                destination: 'worldwide',
-                personalizedReason: 'adventure_traveler',
-                validUntil: this.getOfferExpiry(10),
-                priority: 4,
-                createdAt: new Date().toISOString()
-            });
-        }
-        
-        // Luxury experiences for premium travelers
-        if (userTraits.travel_types?.includes('luxury')) {
-            offers.push({
-                id: `luxury_experience_${Date.now()}`,
-                type: 'experience',
-                partner: 'viator',
-                title: 'Luxury Travel Experiences',
-                description: 'Exclusive access to premium tours and activities',
-                discount: 10, // Smaller discount for luxury
-                destination: 'select_destinations',
-                personalizedReason: 'luxury_traveler',
-                validUntil: this.getOfferExpiry(30),
-                priority: 2,
-                createdAt: new Date().toISOString()
-            });
-        }
-        
-        return offers;
-    }
-    
-    createTimeSensitiveOffers() {
-        const offers = [];
-        const hour = new Date().getHours();
-        const dayOfWeek = new Date().getDay();
-        
-        // Weekend flash sales
-        if (dayOfWeek === 5 || dayOfWeek === 6) { // Friday or Saturday
-            offers.push({
-                id: `weekend_flash_${Date.now()}`,
-                type: 'hotel',
-                partner: 'booking.com',
-                title: 'Weekend Flash Sale',
-                description: 'Limited weekend offer on hotel bookings',
-                discount: 30,
-                destination: 'popular_cities',
-                personalizedReason: 'weekend_special',
-                validUntil: this.getOfferExpiry(2),
-                priority: 1,
-                createdAt: new Date().toISOString(),
-                isFlash: true
-            });
-        }
-        
-        // Late night booking discounts
-        if (hour >= 22 || hour <= 6) {
-            offers.push({
-                id: `night_owl_${Date.now()}`,
-                type: 'flight',
-                partner: 'expedia',
-                title: 'Night Owl Special',
-                description: 'Extra savings for late night bookings',
-                discount: 18,
-                destination: 'worldwide',
-                personalizedReason: 'night_booking',
-                validUntil: this.getOfferExpiry(1),
-                priority: 2,
-                createdAt: new Date().toISOString()
-            });
-        }
-        
-        return offers;
-    }
-    
-    handleDestinationInterest(data) {
-        const { destination } = data;
-        
-        // Generate immediate offers for this destination
-        const immediateOffers = this.createDestinationOffers(destination, 
-            window.userTraits?.getTraits() || {}
-        );
-        
-        // Add to current offers with high priority
-        immediateOffers.forEach(offer => {
-            offer.priority = 0; // Highest priority
-            offer.isImmediate = true;
-        });
-        
-        this.personalizedOffers = [
-            ...immediateOffers,
-            ...this.personalizedOffers.filter(offer => !offer.isImmediate)
-        ].slice(0, 6);
-        
-        this.renderOffers();
-        
-        // Track offer display
-        immediateOffers.forEach(offer => {
-            this.trackOfferShown(offer, 'destination_interest');
-        });
-    }
-    
-    handleSearchEvent(data) {
-        const { query, results } = data;
-        
-        // Generate search-based offers
-        if (results && results.length > 0) {
-            const searchOffers = results.slice(0, 2).map(result => ({
-                id: `search_${result.destination}_${Date.now()}`,
-                type: 'hotel',
-                partner: 'booking.com',
-                title: `Hotels in ${result.destination}`,
-                description: `Based on your search for "${query}"`,
-                discount: this.getRandomDiscount(20, 35),
-                destination: result.destination,
-                personalizedReason: 'search_result',
-                validUntil: this.getOfferExpiry(1),
-                priority: 0,
-                createdAt: new Date().toISOString(),
-                isSearchBased: true
-            }));
-            
-            this.personalizedOffers = [
-                ...searchOffers,
-                ...this.personalizedOffers.filter(offer => !offer.isSearchBased)
-            ].slice(0, 6);
-            
-            this.renderOffers();
-        }
-    }
-    
-    handleOfferClick(offerElement) {
-        const offerId = offerElement.getAttribute('data-offer-id');
-        const offer = this.personalizedOffers.find(o => o.id === offerId);
-        
+        const offer = allOffers.find(o => o.id === offerId);
         if (!offer) return;
-        
-        // Track offer click
-        this.trackOfferClicked(offer);
-        
-        // Update user traits
-        if (window.userTraits && offer.destination && offer.destination !== 'worldwide') {
-            window.userTraits.addDestinationInterest(offer.destination);
-            window.userTraits.setLastAffiliateClick(offer.partner, offer.type);
-        }
-        
-        // Generate affiliate URL and redirect
-        const affiliateUrl = this.generateAffiliateUrl(offer);
-        this.simulateRedirect(affiliateUrl, offer);
-    }
-    
-    generateAffiliateUrl(offer) {
-        const partner = this.affiliatePartners[offer.partner];
-        if (!partner) return '#';
-        
-        const baseUrl = partner.apiEndpoint;
-        const params = new URLSearchParams();
-        
-        // Add partner-specific tracking parameters
-        Object.entries(partner.trackingParams).forEach(([key, value]) => {
-            params.append(key, value);
+
+        // Track the offer click with comprehensive properties
+        SegmentUtils.trackOfferClicked(offerId, {
+            type: offer.type,
+            category: offer.category,
+            destination: offer.destination,
+            country: this.getCountryFromDestination(offer.destination),
+            price: offer.price,
+            currency: offer.currency,
+            discountPercent: offer.discountPercent || 0,
+            partner: offer.partner,
+            placement: 'homepage',
+            offer_title: offer.title,
+            offer_description: offer.description
         });
+
+        // Update user profile with interaction
+        const updatedClickedOffers = [...(this.userProfile.clickedOffers || []), offerId];
+        const updatedInterests = [...new Set([...this.userProfile.interests, ...offer.interests])];
         
-        // Add offer-specific parameters
-        params.append('offer_id', offer.id);
-        params.append('destination', offer.destination);
-        params.append('discount', offer.discount.toString());
-        params.append('source', 'lametayel');
-        params.append('utm_campaign', 'dynamic_offers');
-        params.append('utm_medium', 'affiliate');
-        params.append('utm_source', 'lametayel');
-        
-        return `${baseUrl}?${params.toString()}`;
-    }
-    
-    simulateRedirect(url, offer) {
-        // In a real implementation, this would open the affiliate URL
-        // For demo purposes, we'll show a notification
-        const partnerName = this.affiliatePartners[offer.partner]?.name || offer.partner;
-        
-        if (window.lametayelApp) {
-            window.lametayelApp.showNotification(
-                `Redirecting to ${partnerName}...`, 
-                'info'
-            );
-        }
-        
-        // Log the affiliate URL for demo purposes
-        console.log('Affiliate URL:', url);
-        
-        // Simulate booking completion for some offers
-        if (Math.random() > 0.6) {
-            setTimeout(() => {
-                this.simulateBookingCompletion(offer);
-            }, 3000);
-        }
-    }
-    
-    simulateBookingCompletion(offer) {
-        const bookingId = 'booking_' + Date.now();
-        const commission = this.calculateCommission(offer);
-        
-        // Track booking completion
-        if (window.lametayelTracking) {
-            window.lametayelTracking.trackEvent('Booking Completed', {
-                booking_id: bookingId,
-                offer_id: offer.id,
-                partner: offer.partner,
-                booking_type: offer.type,
-                destination: offer.destination,
-                booking_value: this.estimateBookingValue(offer),
-                commission_earned: commission,
-                currency: 'USD'
-            });
-        }
-        
-        if (window.lametayelApp) {
-            window.lametayelApp.showNotification(
-                `Booking confirmed! (Demo simulation)`, 
-                'success'
-            );
-        }
-    }
-    
-    renderOffers() {
-        const offersContainer = document.getElementById('offers-grid');
-        if (!offersContainer) return;
-        
-        // Clear existing offers
-        offersContainer.innerHTML = '';
-        
-        if (this.personalizedOffers.length === 0) {
-            offersContainer.innerHTML = `
-                <div class="no-offers" style="grid-column: 1 / -1; text-align: center; padding: 3rem;">
-                    <i class="fas fa-compass" style="font-size: 3rem; color: #ddd; margin-bottom: 1rem;"></i>
-                    <p style="color: #6c757d;">Exploring personalized offers for you...</p>
-                </div>
-            `;
-            return;
-        }
-        
-        this.personalizedOffers.forEach(offer => {
-            const offerElement = this.createOfferElement(offer);
-            offersContainer.appendChild(offerElement);
+        this.updateUserProfile({
+            clickedOffers: updatedClickedOffers.slice(-20), // Keep last 20 clicks
+            interests: updatedInterests.slice(0, 15), // Max 15 interests
+            lastOfferClick: new Date().toISOString()
         });
-        
-        // Animate offers in
-        setTimeout(() => {
-            offersContainer.querySelectorAll('.offer-card').forEach((card, index) => {
+
+        // Simulate different actions based on offer type
+        this.simulateOfferAction(offer);
+
+        // Show user feedback
+        this.showOfferFeedback(element, offer);
+    }
+
+    /**
+     * Simulate offer-specific actions
+     */
+    simulateOfferAction(offer) {
+        switch (offer.type) {
+            case 'hotel':
+                // Simulate booking.com redirect
+                console.log('🏨 Redirecting to booking platform:', offer.partner);
                 setTimeout(() => {
-                    card.classList.add('fade-in-up');
-                }, index * 100);
-            });
-        }, 100);
+                    // Simulate booking completion (20% chance)
+                    if (Math.random() < 0.2) {
+                        SegmentUtils.trackBookingCompleted({
+                            bookingId: 'booking_' + Date.now(),
+                            type: 'hotel',
+                            destination: offer.destination,
+                            partner: offer.partner,
+                            amount: offer.price,
+                            currency: offer.currency,
+                            commission: offer.price * 0.1
+                        });
+                    }
+                }, 5000);
+                break;
+                
+            case 'insurance':
+                console.log('🛡️ Opening insurance quote form');
+                break;
+                
+            case 'gear':
+                // Track product view and potential cart addition
+                SegmentUtils.trackProductViewed({
+                    id: offer.id,
+                    name: offer.title,
+                    category: offer.category,
+                    price: offer.price,
+                    currency: offer.currency,
+                    brand: 'Lametayel'
+                });
+                
+                // 30% chance of adding to cart
+                setTimeout(() => {
+                    if (Math.random() < 0.3) {
+                        SegmentUtils.trackItemAddedToCart({
+                            id: offer.id,
+                            name: offer.title,
+                            category: offer.category,
+                            price: offer.price,
+                            currency: offer.currency,
+                            quantity: 1
+                        });
+                    }
+                }, 2000);
+                break;
+                
+            case 'tour':
+                console.log('🗺️ Opening tour booking page');
+                break;
+                
+            case 'flight':
+                console.log('✈️ Searching flights on partner site');
+                break;
+        }
     }
-    
-    createOfferElement(offer) {
-        const template = this.offerTemplates[offer.type];
-        const partner = this.affiliatePartners[offer.partner];
-        
-        const offerDiv = document.createElement('div');
-        offerDiv.className = 'offer-card';
-        offerDiv.setAttribute('data-offer-id', offer.id);
-        offerDiv.setAttribute('data-offer-type', offer.type);
-        
-        const title = template ? 
-            template.title.replace('{destination}', offer.destination.charAt(0).toUpperCase() + offer.destination.slice(1)) :
-            offer.title;
-            
-        const description = template ?
-            template.description.replace('{discount}', offer.discount) :
-            offer.description;
-            
-        const cta = template?.cta || 'Learn More';
-        const icon = template?.icon || 'fas fa-external-link-alt';
-        
-        offerDiv.innerHTML = `
-            <div class="offer-header">
-                ${offer.isFlash ? '<div class="offer-flash">FLASH SALE</div>' : ''}
-                <div class="offer-partner">via ${partner?.name || offer.partner}</div>
-            </div>
-            <div class="offer-content">
-                <div class="offer-icon">
-                    <i class="${icon}"></i>
-                </div>
-                <h3 class="offer-title">${title}</h3>
-                <p class="offer-description">${description}</p>
-                <div class="offer-discount">
-                    <span class="discount-amount">${offer.discount}% OFF</span>
-                    <span class="offer-urgency">${template?.urgency || 'Limited time'}</span>
-                </div>
-                ${template?.benefits ? `
-                <ul class="offer-benefits">
-                    ${template.benefits.map(benefit => `<li><i class="fas fa-check"></i> ${benefit}</li>`).join('')}
-                </ul>
-                ` : ''}
-                <div class="offer-footer">
-                    <button class="btn-primary offer-cta">
-                        ${cta}
-                        <i class="fas fa-arrow-right"></i>
-                    </button>
-                    <div class="offer-expires">
-                        Expires: ${this.formatDate(offer.validUntil)}
-                    </div>
-                </div>
-            </div>
+
+    /**
+     * Show user feedback after offer click
+     */
+    showOfferFeedback(element, offer) {
+        // Create temporary feedback element
+        const feedback = document.createElement('div');
+        feedback.className = 'offer-feedback';
+        feedback.textContent = 'Opening...';
+        feedback.style.cssText = `
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--success-color);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            z-index: 1000;
+            animation: fadeInOut 2s ease-in-out;
         `;
-        
-        return offerDiv;
-    }
-    
-    // Tracking methods
-    
-    trackOfferShown(offer, trigger) {
-        if (window.lametayelTracking) {
-            window.lametayelTracking.trackEvent('Offer Shown', {
-                offer_id: offer.id,
-                offer_type: offer.type,
-                partner: offer.partner,
-                destination: offer.destination,
-                discount_percentage: offer.discount,
-                personalization_reason: offer.personalizedReason,
-                trigger: trigger,
-                position: this.personalizedOffers.indexOf(offer) + 1
-            });
+
+        // Add animation keyframes to document if not exists
+        if (!document.getElementById('offerFeedbackStyles')) {
+            const style = document.createElement('style');
+            style.id = 'offerFeedbackStyles';
+            style.textContent = `
+                @keyframes fadeInOut {
+                    0%, 100% { opacity: 0; transform: translateX(-50%) translateY(10px); }
+                    20%, 80% { opacity: 1; transform: translateX(-50%) translateY(0); }
+                }
+            `;
+            document.head.appendChild(style);
         }
-    }
-    
-    trackOfferClicked(offer) {
-        if (window.lametayelTracking) {
-            window.lametayelTracking.trackEvent('Offer Clicked', {
-                offer_id: offer.id,
-                offer_type: offer.type,
-                partner: offer.partner,
-                destination: offer.destination,
-                discount_percentage: offer.discount,
-                personalization_reason: offer.personalizedReason,
-                click_source: 'dynamic_offers',
-                estimated_commission: this.calculateCommission(offer)
-            });
-        }
-    }
-    
-    // Utility methods
-    
-    deduplicateOffers(offers) {
-        const seen = new Set();
-        return offers.filter(offer => {
-            const key = `${offer.type}_${offer.destination}_${offer.partner}`;
-            if (seen.has(key)) {
-                return false;
+
+        element.style.position = 'relative';
+        element.appendChild(feedback);
+
+        setTimeout(() => {
+            if (feedback.parentNode) {
+                feedback.parentNode.removeChild(feedback);
             }
-            seen.add(key);
-            return true;
-        });
+        }, 2000);
     }
-    
-    getRandomDiscount(min, max) {
-        return Math.floor(Math.random() * (max - min + 1)) + min;
-    }
-    
-    getOfferExpiry(days) {
-        const date = new Date();
-        date.setDate(date.getDate() + days);
-        return date.toISOString();
-    }
-    
-    formatDate(isoString) {
-        return new Date(isoString).toLocaleDateString('en-US', {
-            month: 'short',
-            day: 'numeric'
-        });
-    }
-    
-    calculateCommission(offer) {
-        const partner = this.affiliatePartners[offer.partner];
-        const estimatedBookingValue = this.estimateBookingValue(offer);
-        return partner ? estimatedBookingValue * partner.commission : 0;
-    }
-    
-    estimateBookingValue(offer) {
-        // Rough estimates based on offer type
-        const estimates = {
-            hotel: 150,
-            flight: 400,
-            experience: 80,
-            insurance: 100,
-            car_rental: 200
+
+    /**
+     * Get country from destination
+     */
+    getCountryFromDestination(destination) {
+        const destinationCountryMap = {
+            'italy': 'Italy',
+            'japan': 'Japan',
+            'greece': 'Greece',
+            'thailand': 'Thailand',
+            'france': 'France',
+            'europe': 'Various',
+            'global': 'Global'
         };
-        return estimates[offer.type] || 100;
+        return destinationCountryMap[destination] || destination;
+    }
+
+    /**
+     * Refresh offers (for demo purposes)
+     */
+    refreshOffers() {
+        console.log('🔄 Refreshing offers...');
+        this.renderOffers();
+    }
+
+    /**
+     * Add interest based on user interaction
+     */
+    addUserInterest(interest) {
+        const currentInterests = this.userProfile.interests || [];
+        if (!currentInterests.includes(interest)) {
+            const updatedInterests = [...currentInterests, interest].slice(0, 15);
+            this.updateUserProfile({ interests: updatedInterests });
+            
+            // Refresh offers with new interest
+            setTimeout(() => this.renderOffers(), 1000);
+        }
+    }
+
+    /**
+     * Track user search for offer personalization
+     */
+    trackUserSearch(query) {
+        const recentSearches = this.userProfile.recentSearches || [];
+        const updatedSearches = [query, ...recentSearches.filter(s => s !== query)].slice(0, 10);
+        
+        this.updateUserProfile({ 
+            recentSearches: updatedSearches,
+            lastSearchDate: new Date().toISOString()
+        });
+
+        // Refresh offers based on search
+        setTimeout(() => this.renderOffers(), 500);
     }
 }
 
-// Add offers-specific CSS
-const offersStyles = `
-    .offer-card {
-        background: white;
-        border-radius: 12px;
-        overflow: hidden;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-        transition: all 0.3s ease;
-        cursor: pointer;
-        position: relative;
-        border: 2px solid transparent;
-    }
-    
-    .offer-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-        border-color: var(--primary-orange);
-    }
-    
-    .offer-header {
-        position: relative;
-        background: linear-gradient(135deg, var(--primary-orange), var(--primary-light));
-        color: white;
-        padding: 0.75rem 1rem;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-    
-    .offer-flash {
-        background: var(--accent-orange);
-        color: white;
-        padding: 0.25rem 0.5rem;
-        border-radius: 12px;
-        font-size: 0.7rem;
-        font-weight: bold;
-        animation: pulse 2s infinite;
-    }
-    
-    @keyframes pulse {
-        0%, 100% { opacity: 1; }
-        50% { opacity: 0.7; }
-    }
-    
-    .offer-partner {
-        font-size: 0.8rem;
-        opacity: 0.9;
-    }
-    
-    .offer-content {
-        padding: 1.25rem;
-    }
-    
-    .offer-icon {
-        text-align: center;
-        margin-bottom: 1rem;
-    }
-    
-    .offer-icon i {
-        font-size: 2.5rem;
-        color: var(--primary-blue);
-    }
-    
-    .offer-title {
-        font-size: 1.1rem;
-        font-weight: 600;
-        margin-bottom: 0.5rem;
-        line-height: 1.3;
-    }
-    
-    .offer-description {
-        color: var(--text-secondary);
-        font-size: 0.9rem;
-        margin-bottom: 1rem;
-        line-height: 1.4;
-    }
-    
-    .offer-discount {
-        background: var(--bg-accent);
-        border-radius: 8px;
-        padding: 0.75rem;
-        margin-bottom: 1rem;
-        text-align: center;
-    }
-    
-    .discount-amount {
-        display: block;
-        font-size: 1.3rem;
-        font-weight: bold;
-        color: var(--primary-blue);
-    }
-    
-    .offer-urgency {
-        font-size: 0.8rem;
-        color: var(--text-secondary);
-        font-style: italic;
-    }
-    
-    .offer-benefits {
-        list-style: none;
-        margin-bottom: 1.25rem;
-    }
-    
-    .offer-benefits li {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        font-size: 0.85rem;
-        margin-bottom: 0.25rem;
-        color: var(--text-secondary);
-    }
-    
-    .offer-benefits i {
-        color: var(--accent-green);
-        font-size: 0.8rem;
-    }
-    
-    .offer-footer {
-        display: flex;
-        flex-direction: column;
-        gap: 0.75rem;
-    }
-    
-    .offer-cta {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 0.5rem;
-        padding: 0.75rem 1.5rem;
-    }
-    
-    .offer-expires {
-        text-align: center;
-        font-size: 0.8rem;
-        color: var(--text-light);
-    }
-    
-    .no-offers {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        min-height: 200px;
-    }
-`;
-
-// Inject styles
-const offersStyleSheet = document.createElement('style');
-offersStyleSheet.textContent = offersStyles;
-document.head.appendChild(offersStyleSheet);
-
-// Initialize offers manager when DOM is ready
+// Initialize when DOM is ready
 document.addEventListener('DOMContentLoaded', function() {
-    window.dynamicOffersManager = new DynamicOffersManager();
-    console.log('Dynamic offers manager initialized');
+    window.dynamicOffers = new DynamicOffers();
+    console.log('🎯 Dynamic Offers System initialized');
 });
+
+// Export for use in other scripts
+window.DynamicOffers = DynamicOffers;
