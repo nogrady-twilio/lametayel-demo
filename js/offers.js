@@ -417,7 +417,7 @@ class DynamicOffers {
             offer_description: offer.description
         });
 
-        // Update user profile with interaction
+        // Update user profile with interaction (local storage only, no Segment traits for anonymous users)
         const updatedClickedOffers = [...(this.userProfile.clickedOffers || []), offerId];
         const updatedInterests = [...new Set([...this.userProfile.interests, ...offer.interests])];
         

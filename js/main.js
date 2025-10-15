@@ -81,11 +81,16 @@ class LametayelApp {
      * Check if user is already logged in
      */
     checkUserSession() {
-        const userId = localStorage.getItem('lametayel_user_id');
-        if (userId) {
+        const userData = localStorage.getItem('lametayel_user_data');
+        if (userData) {
+            this.currentUser = JSON.parse(userData);
             this.isLoggedIn = true;
-            this.currentUser = { id: userId };
             this.updateLoginButton();
+            
+            // Re-identify the user in Segment on page load
+            if (this.currentUser.email) {
+                SegmentUtils.identifyUser(this.currentUser.email, this.currentUser);
+            }
         }
     }
 
@@ -730,7 +735,7 @@ class LametayelApp {
     }
 
     /**
-     * Handle login form submission
+     * Handle login form submission (Account Creation)
      */
     handleLogin(e) {
         e.preventDefault();
@@ -739,7 +744,8 @@ class LametayelApp {
         const userData = {
             firstName: formData.get('firstName'),
             lastName: formData.get('lastName'),
-            email: formData.get('email')
+            email: formData.get('email'),
+            createdAt: new Date().toISOString()
         };
 
         // Validate email
@@ -754,19 +760,20 @@ class LametayelApp {
             userType: 'traveler'
         });
 
-        // Identify user in Segment
+        // IMPORTANT: Only now do we identify the user in Segment (using email as user_id)
         SegmentUtils.identifyUser(userData.email, userData);
 
-        // Update app state
+        // Update app state and store user data
         this.isLoggedIn = true;
         this.currentUser = userData;
+        localStorage.setItem('lametayel_user_data', JSON.stringify(userData));
         this.updateLoginButton();
         this.hideLoginModal();
 
         // Show success message
         this.showSuccessMessage(`Welcome, ${userData.firstName}! Your account has been created.`);
 
-        console.log('👤 User logged in:', userData);
+        console.log('👤 User account created and identified:', userData);
     }
 
     /**
@@ -777,21 +784,26 @@ class LametayelApp {
         const userData = {
             firstName: 'John',
             lastName: 'Doe',
-            email: 'john.doe@example.com'
+            email: 'john.doe@example.com',
+            returning: true
         };
 
         SegmentUtils.trackUserLogin({
             method: 'email'
         });
 
+        // Identify existing user in Segment (using email as user_id)
         SegmentUtils.identifyUser(userData.email, userData);
 
         this.isLoggedIn = true;
         this.currentUser = userData;
+        localStorage.setItem('lametayel_user_data', JSON.stringify(userData));
         this.updateLoginButton();
         this.hideLoginModal();
 
         this.showSuccessMessage(`Welcome back, ${userData.firstName}!`);
+        
+        console.log('👤 Existing user logged in:', userData);
     }
 
     /**
@@ -857,6 +869,9 @@ class LametayelApp {
         this.isLoggedIn = false;
         this.currentUser = null;
         
+        // Clear stored user data
+        localStorage.removeItem('lametayel_user_data');
+        
         const loginBtn = document.getElementById('loginBtn');
         if (loginBtn) {
             loginBtn.textContent = 'Sign In';
@@ -864,6 +879,8 @@ class LametayelApp {
         }
 
         this.showSuccessMessage('You have been logged out successfully.');
+        
+        console.log('👋 User logged out and session reset');
     }
 
     /**
@@ -889,10 +906,13 @@ class LametayelApp {
             email: email
         });
 
+        // Note: We don't identify users from newsletter signup alone
+        // Only when they create a full account
+
         document.getElementById('newsletterEmail').value = '';
         this.showSuccessMessage('Thank you for subscribing to our newsletter!');
 
-        console.log('📧 Newsletter signup:', email);
+        console.log('📧 Newsletter signup (anonymous):', email);
     }
 
     /**
@@ -1079,7 +1099,7 @@ class LametayelApp {
         
         console.log('🛍️ Order Completed:', properties);
 
-        // Update user traits for purchase behavior
+        // Update user traits for purchase behavior (only if user is logged in)
         if (this.isLoggedIn) {
             SegmentUtils.updateUserTraits({
                 total_gear_purchases: (SegmentUtils.getUserTrait('total_gear_purchases') || 0) + 1,

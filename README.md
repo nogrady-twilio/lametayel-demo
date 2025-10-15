@@ -217,10 +217,17 @@ offerConfig: {
 ## 🎯 Updated Tracking Behavior
 
 ### ✅ Event Firing Rules
-- **Offer Clicked**: Only fires when users actually click on offers (not on display)
+- **Offer Clicked**: Only fires when users actually click on offers (NO automatic Offer Shown events)
 - **Search Executed**: Fires when users type queries into the search box
 - **Page Viewed**: Fires when users click navigation menu items (Destinations, Travel Guides, Gear)
 - **Order Completed**: Fires when users purchase travel gear items
+- **Article Viewed**: Only fires when users click on article cards
+
+### 👤 User Identification Rules
+- **Anonymous by Default**: No user_id assigned until account creation
+- **Identify on Account Creation**: Only when user creates account with first name, last name, email
+- **Email as User ID**: User's email address becomes their user_id in Segment
+- **No Auto-Identification**: Newsletter signups and other actions remain anonymous
 
 ### 🔍 Enhanced Event Properties
 - **Offer Clicked Events** include: `country`, `type`, `destination`, `price`, `offer_title`, `offer_description`
@@ -230,19 +237,19 @@ offerConfig: {
 ## 🎯 Demo Script for Stakeholders
 
 ### 5-Minute Demo Flow
-1. **Initial Page Load**: Show comprehensive page tracking and user profiling
+1. **Anonymous Browsing**: Initial page load shows anonymous tracking (no user_id)
 2. **Navigation Tracking**: Click menu items to see Page Viewed events fire
 3. **Search Interaction**: Type in search box to trigger Search Executed events
-4. **Article Engagement**: Click articles to build destination interests  
-5. **Offer Interaction**: Click personalized offers to show detailed tracking
-6. **Gear Purchase**: Complete travel gear purchase to show Order Completed events
+4. **Offer Clicks**: Click personalized offers (NO automatic Offer Shown events)
+5. **Account Creation**: Create account to trigger user identification with email as user_id
+6. **Identified Events**: All subsequent events now tied to user identity
 
 ### Key Demo Talking Points
-- **Real-time Personalization**: Offers update immediately based on behavior
+- **Anonymous First**: Users browse anonymously until they choose to create an account
+- **Click-Only Tracking**: Events fire only on actual user interactions, not impressions
+- **Clean User Identification**: Email becomes user_id only after explicit account creation
 - **Rich Event Data**: Every interaction captured with meaningful context
-- **Revenue Attribution**: Clear path from engagement to conversion to commission
-- **Audience Building**: First-party data creating valuable advertiser segments
-- **Cross-session Intelligence**: User preferences persist and evolve over time
+- **Privacy-Conscious**: No automatic user identification or tracking before consent
 
 ## 🔗 External Dependencies
 

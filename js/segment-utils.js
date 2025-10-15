@@ -123,7 +123,7 @@ const SegmentUtils = {
         
         console.log('📖 Article View:', properties);
         
-        // Set user traits for destination interest
+        // Set user traits for destination interest (only if user is identified)
         if (articleData.destination) {
             this.updateUserTraits({
                 [`interested_in_${articleData.destination.toLowerCase()}`]: true,
@@ -152,7 +152,7 @@ const SegmentUtils = {
         
         console.log('🔍 Search:', properties);
         
-        // Update user traits with search interests
+        // Update user traits with search interests (only if user is identified)
         this.updateUserTraits({
             last_search_query: query,
             search_count: (this.getUserTrait('search_count') || 0) + 1
@@ -188,7 +188,7 @@ const SegmentUtils = {
         
         console.log('🖱️ Offer Clicked:', properties);
         
-        // Update user traits
+        // Update user traits (only if user is identified)
         this.updateUserTraits({
             [`clicked_${offerData.type}_offer`]: true,
             last_offer_click: new Date().toISOString(),
@@ -239,7 +239,7 @@ const SegmentUtils = {
         
         console.log('✅ Booking Completed:', properties);
         
-        // Update user traits for successful conversion
+        // Update user traits for successful conversion (only if user is identified)
         this.updateUserTraits({
             total_bookings: (this.getUserTrait('total_bookings') || 0) + 1,
             total_booking_value: (this.getUserTrait('total_booking_value') || 0) + (bookingData.amount || 0),
@@ -437,30 +437,34 @@ const SegmentUtils = {
         
         console.log('👤 User Identified:', userId, traits);
         
-        // Store user ID in localStorage for session tracking
-        localStorage.setItem('lametayel_user_id', userId);
+        // Store user data in localStorage for session tracking
+        localStorage.setItem('lametayel_user_data', JSON.stringify(traits));
     },
 
     /**
-     * Update user traits
+     * Update user traits (only if user is identified)
      */
     updateUserTraits(traits = {}) {
-        const userId = localStorage.getItem('lametayel_user_id');
-        if (userId && window.analytics) {
-            analytics.identify(userId, traits);
+        const userData = localStorage.getItem('lametayel_user_data');
+        if (userData && window.analytics) {
+            const user = JSON.parse(userData);
+            if (user.email) {
+                analytics.identify(user.email, traits);
+                console.log('📝 User Traits Updated:', traits);
+            }
         }
-        
-        console.log('📝 User Traits Updated:', traits);
     },
 
     /**
-     * Get user trait value
+     * Get user trait value (only if user is identified)
      */
     getUserTrait(traitName) {
-        // In a real implementation, this would fetch from Segment's user profile
-        // For now, we'll use localStorage as a simple fallback
-        const userTraits = JSON.parse(localStorage.getItem('lametayel_user_traits') || '{}');
-        return userTraits[traitName];
+        const userData = localStorage.getItem('lametayel_user_data');
+        if (userData) {
+            const userTraits = JSON.parse(localStorage.getItem('lametayel_user_traits') || '{}');
+            return userTraits[traitName];
+        }
+        return null;
     },
 
     /**
@@ -470,10 +474,10 @@ const SegmentUtils = {
         if (window.analytics) {
             analytics.reset();
         }
-        localStorage.removeItem('lametayel_user_id');
+        localStorage.removeItem('lametayel_user_data');
         localStorage.removeItem('lametayel_user_traits');
         
-        console.log('🔄 User Session Reset');
+        console.log('🔄 User Session Reset - Anonymous tracking resumed');
     },
 
     /**
